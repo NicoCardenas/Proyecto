@@ -1,10 +1,11 @@
 import java.awt.*;
 
 /**
- * A rectangle that can be manipulated and that draws itself on a canvas.
+ * A square that can be manipulated and that draws itself on a canvas.
  * 
- * @author  Paola Cuellar y Nicolás Cárdenas
- * @version 1.0  (29 August 2017)
+ * @author  Paola Cuellar
+ * @author Nicolás Cárdenas
+ * @version 1.0  (02 September 2017)
  */
 
 
@@ -21,14 +22,14 @@ public class Cuadrado{
     private int perimeter;
 
     /**
-     * Create a new rectangle at default position with default color.
+     * Create a new square at default position with default color.
      */
     public Cuadrado(){
         height = 40;
         width = 40;
         xPosition = 0;
         yPosition = 0;
-        color = "magenta";
+        color = "light gray";
         isVisible = false;
     }
     
@@ -40,12 +41,12 @@ public class Cuadrado{
         width = size;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
-        color = "magenta";
+        color = "light gray";
         isVisible = false;
     }
 
     /**
-     * Make this rectangle visible. If it was already visible, do nothing.
+     * Make this square visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
         isVisible = true;
@@ -53,7 +54,7 @@ public class Cuadrado{
     }
     
     /**
-     * Make this rectangle invisible. If it was already invisible, do nothing.
+     * Make this square invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
         erase();
@@ -61,7 +62,7 @@ public class Cuadrado{
     }
 
     /**
-     * Move the rectangle horizontally.
+     * Move the square horizontally.
      * @param distance the desired distance in pixels
      */
     public void moveHorizontal(int distance){
@@ -71,7 +72,7 @@ public class Cuadrado{
     }
 
     /**
-     * Move the rectangle vertically.
+     * Move the square vertically.
      * @param distance the desired distance in pixels
      */
     public void moveVertical(int distance){
@@ -99,7 +100,7 @@ public class Cuadrado{
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color,
                 new java.awt.Rectangle(xPosition, yPosition, width, height));
-            canvas.wait(10);
+            canvas.wait(0);
         }
     }
 

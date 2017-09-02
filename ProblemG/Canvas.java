@@ -6,12 +6,12 @@ import java.util.*;
 /**
  * Canvas is a class to allow for simple graphical drawing on a canvas.
  * This is a modification of the general purpose Canvas, specially made for
- * the BlueJ "shapes" example. 
- *
- * @author: Bruce Quig
- * @author: Michael Kolling (mik)
- *
- * @version: 1.6 (shapes)
+ * the BlueJ "shapes" example.
+ * 
+ * @author: Paola Cuellar
+ * @author: Nicolas Cardenas
+ * 
+ * @version: 1.7 (shapes)
  */
 public class Canvas{
     // Note: The implementation of this class (specifically the handling of
@@ -26,7 +26,7 @@ public class Canvas{
      */
     public static Canvas getCanvas(){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("Tablero", 500, 500, 
+            canvasSingleton = new Canvas("Tablero", 1000, 1000, 
                                          Color.white);
         }
         canvasSingleton.setVisible(true);
@@ -134,6 +134,8 @@ public class Canvas{
             graphic.setColor(Color.cyan);
         else if(colorString.equals("gray"))
             graphic.setColor(Color.gray);
+        else if (colorString.equals("light gray"))
+            graphic.setColor(Color.lightGray);
         else
             graphic.setColor(Color.black);
     }
