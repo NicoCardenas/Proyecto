@@ -113,4 +113,10 @@ public class Cuadrado{
             canvas.erase(this);
         }
     }
+    /**
+     * 
+     */
+    public String getColor(){
+        return color;
+    }
 }

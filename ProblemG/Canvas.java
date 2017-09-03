@@ -26,7 +26,7 @@ public class Canvas{
      */
     public static Canvas getCanvas(){
         if(canvasSingleton == null) {
-            canvasSingleton = new Canvas("Tablero", 1000, 1000, 
+            canvasSingleton = new Canvas("Tablero", 500, 500, 
                                          Color.white);
         }
         canvasSingleton.setVisible(true);
