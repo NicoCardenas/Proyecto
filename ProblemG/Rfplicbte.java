@@ -4,7 +4,7 @@ import java.util.*;
  * A square that can be manipulated and that draws itself on a canvas.
  * 
  * @author  Paola Cuellar y Nicolás Cárdenas
- * @version 1.0  (29 August 2017)
+ * @version 1.5  (03 September 2017)
  */
 public class Rfplicbte{
     
@@ -16,7 +16,9 @@ public class Rfplicbte{
     private boolean estado;
     
     /**
-     * Constructor del objeto tablero
+     * Constructor del objeto tablero le entran dos parametos para construirlo.
+     * @param width largo de la matriz.
+     * @param height ancho de la matriz.
      */
     public Rfplicbte(int width, int height){
         tablero1 = new Cuadrado[width][height];
@@ -34,9 +36,10 @@ public class Rfplicbte{
     }
     
     /**
-     * {"#.##","####","...."}
-     * "." empty and "#" filled
+     * El constructor de objeto tablero utiliza una lista para construir la matriz
+     * @param referencePattern es una lista en la que la cadena esta compuesta de "."  y "#" ("." vacio y "#" activo).
      */
+    // caso de prueba {"#.##","####","...."} , {"###.",".#.#",".#.#","#..#"}
     public Rfplicbte(String[] referencePattern){
         int a = referencePattern[0].length();
         int b = referencePattern.length;
@@ -67,7 +70,8 @@ public class Rfplicbte{
    }
     
     /**
-     * 
+     * El método fill construye el tablero apartir de valores binarios.
+     * @param cells es una matriz logica (entran 0 y 1).
      */
     public void fill(int[][] cells){
         estado = false;
@@ -83,52 +87,85 @@ public class Rfplicbte{
     }
     
     /**
-     * 
+     * El método replica la primera matriz en la segunda sin errores.
      */
     public void replicateWhitoutBug(){
-        
+        for (int i = 0; i < tablero1[0].length; i++){
+            for (int j = 0; j < tablero1.length; j++){                
+                if (tablero1[i][j].getError() && tablero1[i][j].getColor() == "light gray"){
+                    tablero2[i][j].changeColor("blue");
+                }else if (tablero1[i][j].getError() && tablero1[i][j].getColor() == "blue"){
+                    tablero2[i][j].changeColor("light gray");
+                }else{
+                    tablero2[i][j].changeColor(tablero1[i][j].getColor());
+                }
+            }
+        }
+        estado = true;
     }
     
     /**
-     * 
+     * El método flip instercambia de estado la celda seleccionada.
+     * @param row fila de la celda seleccionada.
+     * @param column columna de la celda seleccionada.
      */
     public void flip(int row, int column){
+        estado = false;        
+        if (!tablero1[row][column].getError()){
+            tablero1[row][column].setError(true);
+        }else{
+            tablero1[row][column].setError(false);
+        }
         if (row < widthT && column < heightT && tablero1[row][column].getColor() == "light gray"){
             tablero1[row][column].changeColor("blue");
-        }else if (row < widthT && column < heightT && tablero1[row][column].getColor() == "blue"){
+            estado = true;
+        }else if (row < widthT && column < heightT){
             tablero1[row][column].changeColor("light gray");
-        }else if (!estado){
-            estado = false;
+            estado = true;
         }
-        if (estado){doClone();}
     }
 
     /**
-     * 
+     * El método replicate guarda las modificaciones del primer tablero en el segundo tablero.
      */
     public void replicate(){
-        
+        for (int i = 0; i < tablero1[0].length; i++){
+            for (int j = 0; j < tablero1.length; j++){
+                tablero2[i][j].changeColor(tablero1[i][j].getColor());
+            }
+        }
+        estado = true;
     }       
     
     /**
-     * 
+     * El método success 
      */
     public boolean success(){
         return true;
     } 
     
     /**
-     * 
+     * El método putNexus pinta la celda seleccionada con el color indicado.
+     * @param color es el color seleccionado para pintar el nexus.
+     * @param row es el valor de fila de la celda.
+     * @param column es el valor de columna de la celda.
      */
     public void putNexus(String color, int row, int column){
-        
+        tablero1[row][column].changeColor(color);
     }
     
     /**
-     * 
+     * El método 
+     * @param color es el color del nexus para disolver.
      */
     public void dissolveNexus(String color){
-        
+        estado = false;
+        for (int i = 0 ; i < tablero1.length; i++){
+            for (int j = 0 ; j < tablero1[0].length && tablero1[i][j].getColor() == color; j++){
+                    tablero1[i][j].changeColor("light gray");
+                    estado = true;           
+            }
+        }                    
     }
     
     /**
@@ -158,29 +195,16 @@ public class Rfplicbte{
     }
     
     /**
-     * 
+     * El método finish termina el programa.
      */
     public void finish(){
-        
+        System.exit(0);
     }
     
     /**
-     * 
+     * El método ok retorna si la última operación se pudo realizar o no.
      */
     public boolean ok(){
         return estado;
-    }
-    
-    /**
-     * Clona la matris 1 en la dos.
-     */
-    private void doClone() {
-        for (int i = 0; i < widthT; i++){
-            for (int j = 0; j < heightT; j++){
-                if (tablero1[i][j].getColor() == "blue"){
-                    tablero2[i][j].changeColor("blue");
-                }
-            }
-        }
     }
 }

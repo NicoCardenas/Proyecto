@@ -5,7 +5,7 @@ import java.awt.*;
  * 
  * @author  Paola Cuellar
  * @author Nicolás Cárdenas
- * @version 1.0  (02 September 2017)
+ * @version 1.1  (03 September 2017)
  */
 
 
@@ -20,6 +20,7 @@ public class Cuadrado{
     private boolean isVisible;
     private String ColorOrigin;
     private int perimeter;
+    private boolean error;
 
     /**
      * Create a new square at default position with default color.
@@ -31,6 +32,7 @@ public class Cuadrado{
         yPosition = 0;
         color = "light gray";
         isVisible = false;
+        error = false;
     }
     
     /**
@@ -114,9 +116,27 @@ public class Cuadrado{
         }
     }
     /**
-     * 
+     * El método getColor retorna el color del Cuadrado.
+     * @return color
      */
     public String getColor(){
         return color;
     }
+    
+    /**
+     * El método getError retorna si el Cuadrado tiene error.
+     * @return error un valor booleano que determina si tiene error.
+     */
+    public boolean getError(){
+        return error;
+    }
+    
+     /**
+     * El método setError asigna un boleano que determina si tiene error.
+     * @param value es si tiene error o no.
+     */
+    public void setError(boolean value){
+         error = value;
+    }
+    
 }
