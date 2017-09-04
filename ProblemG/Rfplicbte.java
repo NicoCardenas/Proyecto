@@ -16,7 +16,7 @@ public class Rfplicbte{
     private boolean estado;
     
     /**
-     * Constructor del objeto tablero le entran dos parametos para construirlo.
+     * Constructor del objeto tablero le entran dos parametros para construirlo.
      * @param width largo de la matriz.
      * @param height ancho de la matriz.
      */
@@ -70,8 +70,8 @@ public class Rfplicbte{
    }
     
     /**
-     * El método fill construye el tablero apartir de valores binarios.
-     * @param cells es una matriz logica (entran 0 y 1).
+     * El método fill construye el tablero a partir de valores binarios.
+     * @param cells es una matriz lógica (entran 0 y 1).
      */
     public void fill(int[][] cells){
         estado = false;
@@ -182,7 +182,7 @@ public class Rfplicbte{
     }
     
     /**
-     * Make this Rfplicbte visible. If it was already visible, do nothing.
+     * Make this Rfplicbte invisible. If it was already invisible, do nothing.
      */
     public void makeInvisible(){
         for (int i = 0; i < widthT; i++){
