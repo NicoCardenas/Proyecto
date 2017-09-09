@@ -46,9 +46,7 @@ public class Rfplicbte{
         tablero1 = new Cuadrado[a][b];
         tablero2 = new Cuadrado[a][b];
         isVisible = estado = false;
-        widthT = a;
-        heightT = b;
-        size = 10;
+        widthT = a;  heightT = b; size = 10;
         for (int i = 0; i < a; i++){
             for (int j = 0; j < b; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
@@ -59,7 +57,6 @@ public class Rfplicbte{
         for(int i = 0; i < a; i++){
             for(int j = 0; j < b; j++){
                 if (referencePattern[j].charAt(i)=='#'){
-                   tablero1[i][j].changeColor("blue");
                    tablero2[i][j].changeColor("blue");
                    estado = true;
                 }else if(referencePattern[j].charAt(i)=='.'){
@@ -75,14 +72,9 @@ public class Rfplicbte{
      */
     public void fill(int[][] cells){
         estado = false;
-        for (int i = 0; i < cells.length && widthT >= cells.length; i++){
-            for (int j = 0; j < cells[i].length && heightT >= cells[i].length; j++){
-                if (cells[i][j] == 1){
-                    tablero1[i][j].changeColor("blue");
-                    tablero2[i][j].changeColor("blue");
-                    estado = true;
-                }
-            }
+        for (int i = 0; i < cells.length; i++){
+            tablero2[cells[i][0]][cells[i][1]].changeColor("blue");
+            estado = true;               
         }
     }
     
@@ -90,6 +82,7 @@ public class Rfplicbte{
      * El método replica la primera matriz en la segunda sin errores.
      */
     public void replicateWhitoutBug(){
+        estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){                
                 if (tablero1[i][j].getError() && tablero1[i][j].getColor() == "light gray"){
@@ -129,6 +122,7 @@ public class Rfplicbte{
      * El método replicate guarda las modificaciones del primer tablero en el segundo tablero.
      */
     public void replicate(){
+        estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){
                 tablero2[i][j].changeColor(tablero1[i][j].getColor());
@@ -138,10 +132,21 @@ public class Rfplicbte{
     }       
     
     /**
-     * El método success 
+     * El método success verifica que el patron en ambas matrices sea igual
+     * @return retorna el valor de la comparacion de las dos matrices
      */
     public boolean success(){
-        return true;
+        boolean res = true;
+        estado = false;
+        for (int i = 0; i < tablero1[0].length; i++){
+            for (int j = 0; j < tablero1.length; j++){                
+                if (tablero1[i][j].getColor() != tablero2[i][j].getColor()){
+                    res = false;
+                }
+                estado = true;
+            }
+        }
+        return res;
     } 
     
     /**
@@ -151,7 +156,11 @@ public class Rfplicbte{
      * @param column es el valor de columna de la celda.
      */
     public void putNexus(String color, int row, int column){
-        tablero1[row][column].changeColor(color);
+        estado = false;
+        if (tablero1[row][column].getColor() != "light gray"){
+            tablero1[row][column].changeColor(color);
+            estado = true;
+        }
     }
     
     /**
@@ -162,8 +171,8 @@ public class Rfplicbte{
         estado = false;
         for (int i = 0 ; i < tablero1.length; i++){
             for (int j = 0 ; j < tablero1[0].length && tablero1[i][j].getColor() == color; j++){
-                    tablero1[i][j].changeColor("light gray");
-                    estado = true;           
+                tablero1[i][j].changeColor("light gray");
+                estado = true;           
             }
         }                    
     }
@@ -202,7 +211,8 @@ public class Rfplicbte{
     }
     
     /**
-     * El método ok retorna si la última operación se pudo realizar o no.
+     * El método ok verifica si la ultima accion realizada fue hecha.
+     * @return retorna si la ultima operacion fue realizada.
      */
     public boolean ok(){
         return estado;

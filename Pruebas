@@ -1,0 +1,1376 @@
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * The test class RfplicbteTest.
+ *
+ * @author  (your name)
+ * @version (a version number or a date)
+ */
+public class RfplicbteTest{
+    /**
+     * Default constructor for test class RfplicbteTest
+     */
+    public RfplicbteTest(){
+        
+    }
+
+    /**
+     * Sets up the test fixture.
+     *
+     * Called before every test case method.
+     */
+    @Before
+    public void setUp(){
+        
+    }
+    
+    //Moreno-Beltran V2.0 ALPHA!
+    //Pruebas de add(int[])
+    
+    @Test
+    public void SegunMBdeberiaadicionar(){
+         ICPCsAnalyzer prueba1= new ICPCsAnalyzer();
+         prueba1.add(new int[]{1,2,3});
+         assertEquals(true,prueba1.ok());
+         prueba1.cluster();
+         prueba1.add(new int[]{-15646,0,165161651,48949,1984,-919841,61,65165,-169,4165,1,165,165,165,19,189,49,49,419,19,191,54156});
+         assertEquals(true,prueba1.ok());
+         prueba1.cluster();
+         prueba1.add(new int[]{0,0,0});
+         assertEquals(true,prueba1.ok());
+         prueba1.cluster();
+    }
+    
+    @Test
+    public void SegunMBnodeberiaadicionar(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer ();
+        prueba1.add(new int[]{});
+        assertEquals(false,prueba1.ok());
+    }
+    
+    //Pruebas de select(String, int)
+    
+    @Test
+    public void SegunMBdeberiaSeleccionarUnPrototipo() {
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer ();
+        prueb.add(new int[]{2,7,1});
+        prueb.cluster();
+        prueb.add(new int[]{1,5,9});
+        prueb.cluster();
+        prueb.select("pink",1);
+        assertEquals(true, prueb.ok());
+        prueb.select("red",1);
+        assertEquals(true, prueb.ok());
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaSeleccionarSiMenorACeroIndice(){
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer ();
+        prueb.add(new int[]{2,7,1});
+        prueb.cluster();
+        prueb.add(new int[]{1,5,9});
+        prueb.cluster();
+        prueb.select("pink",-4);
+        assertEquals(false, prueb.ok());
+        prueb.select("red",0);
+        assertEquals(false, prueb.ok());
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaSeleccionarSiColorNoExiste(){
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer ();
+        prueb.add(new int[]{2,7,1});
+        prueb.cluster();
+        prueb.add(new int[]{1,5,9});
+        prueb.cluster();
+        prueb.select("volatile",1);
+        assertEquals(false, prueb.ok());
+        prueb.select("interesting",1);
+        assertEquals(false, prueb.ok());
+    }
+    
+    // Pruebas de addLayers()
+    
+    @Test
+    public void SegunMBdeberiaAdicionarCapasAleatorias(){
+        ICPCsAnalyzer pr = new ICPCsAnalyzer();
+        pr.addLayers();
+        assertEquals(pr.ok(),true);
+    }
+    
+    // Pruebas de addLayers(int)
+    
+    @Test
+    public void SegunMBdeberiaAdicionarCapasPorInt(){
+        ICPCsAnalyzer pr = new ICPCsAnalyzer();
+        pr.addLayers(60);
+        assertEquals(pr.ok(),true);
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaAdicionarCapasSiBooleanos(){
+        ICPCsAnalyzer pr = new ICPCsAnalyzer();
+        pr.addLayers(false);
+        assertEquals(pr.ok(),false);
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaAdicionarCapasSiCadenas(){
+        ICPCsAnalyzer pr = new ICPCsAnalyzer();
+        pr.addLayers("hola");
+        assertEquals(pr.ok(),false);
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaAdicionarCapasSiCaracter(){
+        ICPCsAnalyzer pr = new ICPCsAnalyzer();
+        pr.addLayers('a');
+        assertEquals(pr.ok(),false);
+    }
+    
+    // Pruebas de addLayers(int[])
+    
+    @Test
+    public void segunMBdeberiaAdicionarArreglo(){
+        ICPCsAnalyzer prueba = new ICPCsAnalyzer ();
+        prueba.add(new int[]{1,2,3});
+        prueba.addLayers(new int[]{21,54,34,2,3,123,74});
+        assertEquals(true,prueba.ok());
+    }
+    
+    @Test
+    public void SegunMBdeberiaadicionarcapas(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer ();
+        prueba1.add(new int[]{1,2,3});
+        prueba1.addLayers(new int[]{-15646,0,165161651,48949,1984,-919841,61,65165,-169,4165,1,165,165,165,19,189,49,49,419,19,191,54156});
+        assertEquals(true,prueba1.ok());
+        prueba1.addLayers(-51651);
+        assertEquals(true,prueba1.ok());
+        prueba1.addLayers();
+        assertEquals(true,prueba1.ok());
+        prueba1.cluster();
+    }
+    
+    @Test
+    public void SegunMBnodeberiaadicionarcapas(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer ();
+        prueba1.add("sda");
+        assertEquals(false,prueba1.ok());
+    }
+    
+    // Pruebas de cluster()
+    
+    @Test
+    public void SegunMBdeberiacluster(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer ();
+        prueba1.add(new int[]{1,2,3});
+        prueba1.cluster();
+        assertEquals(true,prueba1.ok());
+    }
+    
+    @Test
+    public void SegunMBnodeberiacluster(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer ();
+        prueba1.add(new int[]{});
+        prueba1.cluster();
+        assertEquals(true,prueba1.ok());
+        prueba1.add(new int[]{1,0,0});
+        prueba1.cluster();
+        prueba1.add(new int[]{2,0,0});
+        prueba1.cluster("nodeberia");
+        assertEquals(false,prueba1.ok());
+    }
+    
+    // Pruebas de cluster(String)
+    
+    @Test
+    public void SegunMBdeberiaHacerClusterPorGrupo(){
+        ICPCsAnalyzer prueba1 = new ICPCsAnalyzer();
+        prueba1.add(new int[]{3,1,4});
+        prueba1.cluster("red");
+        assertEquals(true,prueba1.ok());
+    }
+    
+    @Test
+    public void SegunMBnoDeberiaHacerClusterSiNoEsColor(){
+        ICPCsAnalyzer prueba1 = new ICPCsAnalyzer();
+        prueba1.add(new int[]{3,1,4});
+        prueba1.cluster("metal");
+        assertEquals(false,prueba1.ok()); 
+    }
+    
+    // Pruebas consult()
+    
+    @Test
+    public void SegunMBdeberiaconsult(){
+        ICPCsAnalyzer prueba1= new ICPCsAnalyzer (new String []{"red","blue","yellow","pink","cyan"});
+        prueba1.add(new int[]{1,2,3});
+        prueba1.cluster();
+        assertEquals(new int [][][] {{{1,2,3}}},prueba1.consult());
+        prueba1.add(new int[]{-15646,0,165161651,48949,1984,-919841,61,65165,-169,4165,1,165,165,165,19,189,49,49,419,19,191,54156});
+        prueba1.cluster("red");
+        assertEquals(new int [][][] {{{1,2,3}}, {{-15646,0,165161651,48949,1984,-919841,61,65165,-169,4165,1,165,165,165,19,189,49,49,419,19,191,54156}}},prueba1.consult());
+        prueba1.add(new int[]{0,0,0});
+        prueba1.cluster();
+        assertEquals(new int [][] {{1,2,3},{0,0,0}},prueba1.consult("red"));
+        assertEquals(new int [][] {0,0,0},prueba1.consult("red",2));
+    }
+    
+    // Pruebas de makeVisible()
+    
+    @Test
+    public void SegunMBdeberiaHacerVisible(){
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer();
+        prueb.makeVisible();
+        assertEquals(true, prueb.ok());
+    }
+    
+    // Pruebas de makeInvisible()
+    
+    @Test
+    public void SegunMBdeberiaHacerInvisible(){
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer();
+        prueb.makeInvisible();
+        assertEquals(true, prueb.ok());
+    }
+    
+    // Pruebas de finish()
+    
+    @Test
+    public void SegunMBdeberiaFinalizar(){
+        ICPCsAnalyzer prueb = new ICPCsAnalyzer();
+        prueb.finish();
+        assertEquals(true, prueb.ok());
+    }
+
+    //GonzalezSanchez
+    //Pruebas de ICPCsAnalyzer(String [] colours)
+    
+    ICPCsAnalyzer analizador = new ICPCsAnalyzer();
+    
+    @Test
+    public void sedunGSDeberiaAceptarColours(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(new String [] {"brown","magenta"});
+
+        assertEquals(analizador.ok(),true);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer(new String [] {"yellow"});
+
+        assertEquals(analiza.ok(),true);
+
+    }
+
+    @Test
+    public void sedunGSNodeberiaAceptarColoresDiferentes(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(new String [] {"rosado","red"});
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer(new String [] {"rosado","naranja"});
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAceptarColoursVacio (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(new String [] {});
+
+        assertEquals(analizador.ok(),false);
+
+    }
+
+    //Pruebas de add(int[] values)
+
+    @Test
+    public void segunGSDeberiaAdicionarPrototipos (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{4,7,1,2,3});
+
+        assertEquals(analizador.ok(),true);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{2,1,3});
+
+        assertEquals(analiza.ok(),true);
+
+    }  
+
+    @Test
+    public void segunGSNoDeberiaAgregarCuandoPrototipoEnEdicion (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{8,2,4,5});
+
+        analizador.add(new int []{1,2});
+
+        assertEquals(analizador.ok(),false);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAgregarCuandoValuesVacio (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{});
+
+        assertEquals(analizador.ok(),false);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAgregarValuesMenoresQueUno (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{100,0});
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{2,-1,-3});
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    //Pruebas de addLayers()
+
+    @Test
+    public void segunGSDeberiaAdicionarCapaAleatoria (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{4,7,1,2,3});
+
+        analizador.addLayers();
+
+        assertEquals(analizador.ok(),true);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{2,1,3});
+
+        analiza.addLayers();
+
+        assertEquals(analiza.ok(),true);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAdicionarCapaAleatoriaSiNoHayPrototipoEnEdicion (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.addLayers();
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.addLayers();
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    //Pruebas de addLayers(int value)
+
+    @Test
+    public void segunGSDeberiaAdicionarCapaDadoUnValor (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4});
+
+        analizador.addLayers(26);
+
+        assertEquals(analizador.ok(),true);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{1,2,3,4});
+
+        analiza.addLayers(50);
+
+        assertEquals(analiza.ok(),true);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAdicionarCapaSiNoHayPrototipoEnEdicion (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.addLayers(4);
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.addLayers(100);
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAgregarCapaMenorQueUno (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4});
+
+        analizador.addLayers(0);
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{1,2,3,4});
+
+        analiza.addLayers(-100);
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    //Pruebas de addLayers(int[] values)
+
+    @Test
+    public void segunGSDeberiaAdicionarCapaDadoUnArreglo (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{97,30,9});
+
+        analizador.addLayers(new int []{1,2,3});
+
+        assertEquals(analizador.ok(),true);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{1,2,5,6});
+
+        analiza.addLayers(new int []{8,65,3});
+
+        assertEquals(analiza.ok(),true);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAdicionarCapasSiNoHayPrototipoEnEdicion (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.addLayers(new int []{97,1});
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.addLayers(new int []{3,5,323});
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAgregarCapasMenoresQueUno (){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.addLayers(new int []{99,0});
+
+        assertEquals(analizador.ok(),false);
+
+        ICPCsAnalyzer analiza=new ICPCsAnalyzer();
+
+        analiza.add(new int []{45,3234,65});
+
+        analiza.addLayers(new int []{-185,2});
+
+        assertEquals(analiza.ok(),false);
+
+    }
+
+    //Pruebas de Cluster()
+
+    @Test
+    public void segunGSDeberiaAdicionarPrototipoAGrupoNuevo(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster();
+
+        assertEquals(analizador.ok(),true);
+
+        assertArrayEquals(analizador.consult(),new int[][][]{{{1,4,6,43}}});
+
+    }
+
+    @Test
+
+    public void segunGSDeberiaAdicionarPrototipoAGrupoExistente(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{4,7,1,2,3});
+
+        analizador.cluster();
+
+        analizador.add(new int []{5,8,2,3,4});
+
+        analizador.cluster();
+
+        assertEquals(analizador.ok(),true);
+
+        assertArrayEquals(analizador.consult(),new int[][][]{{{4,7,1,2,3},{5,8,2,3,4}}});
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaAdicionarPrototipoVacio(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.cluster();
+
+        assertEquals(analizador.ok(),false);
+
+        assertArrayEquals(analizador.consult(),new int[][][]{});
+
+    }
+
+    //Pruebas de Cluster(String group)
+
+    @Test
+    public void segunGSDeberiaCrearUnGrupoConColorDado(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster("green");
+
+        assertEquals(analizador.ok(),true);
+
+    }
+
+    @Test
+
+    public void segunGSNoDeberiaAceptarColorDiferente(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster("hola");
+
+        assertEquals(analizador.ok(),false);
+
+    }
+    
+    //Pruebas de consult()
+
+    @Test
+    public void segunGSDeberiaConsultarTodosLosGrupos(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster();
+
+        analizador.add(new int []{3,6,8,45});
+
+        analizador.cluster();
+
+        analizador.add(new int []{1,2,100,4,7,3,5});
+
+        analizador.cluster();
+
+        assertArrayEquals(analizador.consult(),new int [][][]{{{1,4,6,43},{3,6,8,45}},{{1,2,100,4,7,3,5}}});
+
+        assertEquals(analizador.ok(),true);
+
+    }
+    
+    //Pruebas de consult(String group)
+
+    @Test
+    public void segunGSDeberiaConsultarUnGrupo(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster("blue");
+
+        assertArrayEquals(analizador.consult("blue"),new int [][]{{1,4,6,43}});
+
+        assertEquals(analizador.ok(),true);
+
+        analizador.add(new int []{3,6,8,45});
+
+        analizador.cluster();
+
+        assertArrayEquals(analizador.consult("blue"),new int [][]{{1,4,6,43},{3,6,8,45}});
+
+        assertEquals(analizador.ok(),true);
+
+        analizador.add(new int []{1,2,100,4,7,3,5});
+
+        analizador.cluster("yellow");
+
+        assertArrayEquals(analizador.consult("yellow"),new int [][]{{1,2,100,4,7,3,5}});
+
+        assertEquals(analizador.ok(),true);
+
+    }
+    
+    @Test
+    public void segunGSNoDeberiaAceptarCualquierColor(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster("blue");
+
+        assertArrayEquals(analizador.consult("hola"),new int [][]{});
+
+        int[][]a=analizador.consult("hola");
+
+        assertEquals(analizador.ok(),false);
+
+        analizador.add(new int []{3,6,8,45});
+
+        analizador.cluster("green");
+
+        assertArrayEquals(analizador.consult("casa"),new int [][]{});
+
+        a=analizador.consult("casa");
+
+        assertEquals(analizador.ok(),false);
+
+    }
+    
+    //Pruebas de consult(String group,int position)
+
+    @Test
+    public void segunGSDeberiaConsultarConGrupoYPosicionDados(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4,7,3,5});
+
+        analizador.cluster("blue");
+
+        analizador.add(new int []{8,16,800,32,56,24,40});
+
+        analizador.cluster("blue");
+
+        assertArrayEquals(analizador.consult("blue",2),new int []{8,16,800,32,56,24,40});
+
+        assertEquals(analizador.ok(),true);
+
+        assertArrayEquals(analizador.consult("blue",1),new int []{1,2,100,4,7,3,5});
+
+        assertEquals(analizador.ok(),true);
+
+    }
+    
+    @Test
+    public void segunGSNoDeberiaAceptarPosicionesInvalidas(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{8,16,800,32,56,24,40});
+
+        analizador.cluster("blue");
+
+        assertArrayEquals(analizador.consult("blue",-2),new int []{});
+
+        assertEquals(analizador.ok(),false);
+
+        assertArrayEquals(analizador.consult("blue",0),new int []{});
+
+        assertEquals(analizador.ok(),false);
+
+    }
+    
+    @Test
+    public void segunGSNoDeberiaAceptarColoresInvalidos(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4,7,4,5});
+
+        analizador.cluster("blue");
+
+        assertArrayEquals(analizador.consult("casa",1),new int []{});
+
+        assertEquals(analizador.ok(),false);
+
+    }
+
+    //Pruebas de select(String group, int position)
+
+    @Test
+    public void segunGSDeberiaSeleccionarPrototipo(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4,7,3,5});
+
+        analizador.cluster("blue");
+
+        analizador.add(new int []{8,16,800,32,56,24,40});
+
+        analizador.cluster("blue");
+
+        analizador.select("blue",1);
+
+        assertArrayEquals(analizador.consult("blue"),new int [][]{{8,16,800,32,56,24,40}});
+
+        assertEquals(analizador.ok(),true);
+
+        analizador.cluster();
+
+        analizador.select("blue",1);
+
+        assertArrayEquals(analizador.consult("blue"),new int [][]{{1,2,100,4,7,3,5}});
+
+        assertEquals(analizador.ok(),true);
+
+    }
+
+    @Test
+    public void segunGSNoDeberiaSeleccionarSiPrototipoEnEdicion(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{1,2,100,4,7,3,5});
+
+        analizador.cluster("blue");
+
+        analizador.add(new int []{8,16,800,32,56,24,40});
+
+        analizador.cluster("blue");
+
+        analizador.add(new int []{1,2,3});
+
+        analizador.select("blue",2);
+
+        assertEquals(analizador.ok(),false);
+
+    }
+           
+    //Arias  V2 Teniendo en cuenta repeticiones , y  negativos 
+    
+    @Test
+    public void SegunAdeberiaIniciarInvisible(){
+
+        // se Necesita visible en public
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        assertEquals(analizador.ok(),true);
+
+        assertEquals(analizador.visible,false);
+
+    }
+
+    //Pruebas ICPCsAnalyzer(String[] colours)     
+
+    @Test    
+    public void SegunAdeberiaCrearGruposConColoresPredeterminados(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(new String[]{"red","blue"});
+
+        analizador.add(new int []{1,4,6,43});
+
+        analizador.cluster();       
+
+        analizador.add(new int []{1,4,6,43});       
+
+        analizador.cluster("red");       
+
+        assertEquals(analizador.ok(),true); 
+
+        analizador.add(new int []{45,2,6});
+
+        analizador.cluster();
+
+        analizador.add(new int []{45,2,6});       
+
+        analizador.cluster("blue");
+
+        assertEquals(analizador.ok(),true);     
+
+    }
+     
+    //Pruebas addLayers(int[])        
+
+    @Test    
+    public void SegunAdeberiaAdicionarCapas(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{10,5,6});
+
+        analizador.addLayers(new int[]{4,3,2});       
+
+        assertEquals(analizador.ok(),true); 
+
+        analizador.addLayers(new int[]{0,1,8});       
+
+        assertEquals(analizador.ok(),true);            
+
+    }
+            
+    @Test
+    public void SegunANodeberiaAdicionarCapas(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();      
+
+        analizador.addLayers(new int[]{4,6,5});       
+
+        assertEquals(analizador.ok(),false); 
+
+        analizador.add(new int []{10,5,6});       
+
+        analizador.cluster();
+
+        analizador.addLayers(new int[]{0,1,2});        
+
+        assertEquals(analizador.ok(),false);            
+
+    }
+       
+    //Pruebas addLayers(int)
+
+    @Test
+    public void SegunAdeberiaAdicionarCapa(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int []{10,5,6});
+
+        analizador.addLayers(4);       
+
+        assertEquals(analizador.ok(),true); 
+
+        analizador.addLayers(1);       
+
+        assertEquals(analizador.ok(),true);            
+
+    }  
+               
+    @Test
+    public void SegunANodeberiaAdicionarCapa(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();       
+
+        analizador.addLayers(5);       
+
+        assertEquals(analizador.ok(),false);
+
+        analizador.add(new int []{10,5,6});
+
+        analizador.cluster();
+
+        analizador.addLayers(0);        
+
+        assertEquals(analizador.ok(),false);   
+
+        analizador.addLayers(5); 
+
+        assertEquals(analizador.ok(),false); 
+
+    }  
+        
+    //Pruebas cluster();
+
+    @Test
+    public void SegunAdeberiaHacerCluster(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        for (int i=0;i<10;i++){
+
+            analizador.add(new int[]{1});
+
+            analizador.addLayers();
+
+            analizador.addLayers();
+
+            analizador.addLayers();
+
+            analizador.addLayers();
+
+            analizador.cluster();
+
+            assertEquals(analizador.ok(),true); 
+
+        }           
+
+    }  
+        
+    @Test
+    public void SegunANodeberiaHacerCluster(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();   
+
+        analizador.cluster();
+
+        assertEquals(analizador.ok(),false);                    
+
+    }      
+    
+    //Pruebas cluster("group")   
+    
+    @Test    
+    public void SegunAdeberiaHacerClusterGroup(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+
+        analizador.add(new int[]{1,2,3});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{4,6,8});     
+
+        //Primer color que les salga , en mi caso red
+
+        analizador.cluster("red");
+
+        assertEquals(analizador.ok(),true);                   
+
+    }  
+        
+    @Test
+    public void SegunAdeberiaHacerClusterGroupUsandoPredeterminados(){
+
+        // coloquen colores que existan en su ICPC
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(new String[]{"red","blue","violet","yellow"});
+
+        analizador.add(new int[]{15,14,13});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,6,7}); 
+
+        analizador.cluster();
+
+        analizador.add(new int[]{2,1,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,4});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{18,14,13});
+
+        analizador.cluster("red");  // Primer color
+
+        assertEquals(analizador.ok(),true);
+
+        analizador.add(new int[]{3,6,7}); 
+
+        analizador.cluster("blue"); //Segundo color
+
+        assertEquals(analizador.ok(),true);
+
+        analizador.add(new int[]{5,4,7});
+
+        analizador.cluster("violet"); //Tercer color
+
+        assertEquals(analizador.ok(),true); 
+
+        analizador.add(new int[]{10,5});       
+
+        analizador.cluster("yellow");  // Cuarto color
+
+        assertEquals(analizador.ok(),true);                     
+
+    }  
+            
+    @Test
+    public void SegunANodeberiaHacerClusterGroup(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer(); 
+
+        analizador.add(new int[]{1,2,3});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{4,6,8});   
+
+        analizador.cluster("transparente");  //Algun otro color que no exista
+
+        assertEquals(analizador.ok(),false);             
+
+        analizador.cluster("orange");  // Color valido pero que no exista en el momento
+
+        assertEquals(analizador.ok(),false);           
+
+    }     
+
+    //Pruebas consult();     
+
+     @Test
+    public void SegunAdeberiaHacerConsultCorrecto(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();       
+
+        analizador.add(new int[]{1,2,3});
+
+        analizador.cluster();
+
+        assertArrayEquals(new int[][][]{{{1,2,3}}},analizador.consult());      
+
+        assertArrayEquals(new int[][]{{1,2,3}},analizador.consult("red"));   //Primer color que salga          
+
+        assertArrayEquals(analizador.consult("red",1),new int[]{1,2,3});   // primer color que salga, cuento desde 1 no desde 0 ! ojo !  
+
+        analizador=new ICPCsAnalyzer(); 
+
+        analizador.add(new int[]{15,14,13});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{12,11,10});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,6,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{2,1,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,4});
+
+        analizador.cluster();
+
+        assertArrayEquals(new int[][][]{{{15,14,13},{12,11,10}},{{5,6,7}},{{2,1,7}},{{5,4}}},analizador.consult());
+
+    }      
+        
+    //Pruebas select("group",pos);
+    @Test
+    public void SegunAdeberiaHacerSelect(){
+    
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+        analizador.add(new int[]{1,2,3}); 
+        analizador.cluster();
+        analizador.add(new int[]{4,6,8}); 
+        analizador.cluster();
+        //Primer color que les salga , en mi caso red, empiezo a contar desde 1 ojo!
+        analizador.select("red",2);
+        assertEquals(analizador.ok(),true); 
+        analizador.addLayers(12);
+        analizador.cluster();
+        //Segundo color que salga en mi caso orange
+        assertArrayEquals(new int[]{4,6,8,12},analizador.consult("orange",1));
+        
+    } 
+    
+    @Test
+    public void SegunANodeberiaHacerSelect(){
+    
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();
+        analizador.add(new int[]{1,2,3}); 
+        analizador.cluster();
+        analizador.add(new int[]{4,6,8}); 
+        analizador.cluster();
+        //Primer color que les salga , en mi caso red, empiezo a contar desde 1 ojo!
+        analizador.select("red",3);
+        assertEquals(analizador.ok(),false); 
+        analizador.addLayers(12);
+        assertEquals(analizador.ok(),false);
+        analizador.cluster();
+        assertEquals(analizador.ok(),false);
+    
+    }
+    
+    //Pruebas sort();   
+
+    @Test
+    public void SegunAdeberiaHacerSortCorrecto(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();        
+
+        analizador.add(new int[]{15,14,13});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{12,11,10});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,6,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{2,1,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,4});
+
+        analizador.cluster();
+
+        analizador.sort();
+
+        assertArrayEquals(new int[][][]{{{5,4}},{{2,1,7}},{{5,6,7}},{{15,14,13},{12,11,10}}},analizador.consult());
+
+        analizador.sort();      
+
+        assertArrayEquals(new int[][][]{{{5,4}},{{2,1,7}},{{5,6,7}},{{15,14,13},{12,11,10}}},analizador.consult());
+
+        analizador=new ICPCsAnalyzer();      
+
+        analizador.add(new int[]{15,20,17});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{12,21,15});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{15,14,13});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{12,11,10});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,6,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{2,1,7});
+
+        analizador.cluster();
+
+        analizador.add(new int[]{5,4});
+
+        analizador.cluster();      
+
+        analizador.sort();
+
+        assertArrayEquals(new int[][][]{{{5,4}},{{2,1,7}},{{5,6,7}},{{15,14,13},{12,11,10}},{{15,20,17},{12,21,15}}},analizador.consult());        
+
+    }          
+    
+    // Pruebas zomm(char);
+
+    @Test
+    public void SegunAdeberiaHacerZoom(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();         
+
+        analizador.zoom('-');       
+
+        assertEquals(true,analizador.ok());
+
+        analizador.add(new int[]{12,11,10});
+
+        analizador.cluster();
+
+        analizador.zoom('+');
+
+        assertEquals(true,analizador.ok());
+
+        analizador.zoom('-');  
+
+        assertEquals(true,analizador.ok());            
+
+    }           
+    
+           
+    @Test    
+    public void SegunANOdeberiaHacerZoom(){
+
+        ICPCsAnalyzer analizador=new ICPCsAnalyzer();         
+
+        analizador.zoom('a');       
+
+        assertEquals(false,analizador.ok());
+
+        analizador.add(new int[]{12,11,10});
+
+        analizador.cluster();
+
+        analizador.zoom('a');
+
+        assertEquals(false,analizador.ok());
+
+        analizador.zoom('b');  
+
+        assertEquals(false,analizador.ok());            
+
+    }                 
+    
+    //Bohorquez Cifuentes
+        
+    @Test
+    public void deberiaRetornarArrayEsperado(){
+        int[] t1= {1,2,3,4,5};
+        int[] t2= {5,4,3,21};
+        ICPCsAnalyzer test1 = new ICPCsAnalyzer();
+        test1.add(t1);
+        test1.cluster();
+        test1.add(t2);
+        test1.cluster();
+        assertArrayEquals(t1,test1.consult("red",0));
+        assertArrayEquals(new int[][][] {{{1,2,3,4,5}},{{5,4,3,21}},{},{},{},{}}, test1.consult());    
+    }
+        
+    @Test
+    public void deberiaRetornarUnArrayVacio(){
+        int[] t1= {1,2,3,4,5};
+        int[] t2= {5,4,3,21};
+        ICPCsAnalyzer test1 = new ICPCsAnalyzer();
+        test1.add(t1);
+        test1.cluster();
+        test1.add(t2);
+        test1.cluster();
+        assertArrayEquals(new int[] {}, test1.consult("purple", 0));
+        assertArrayEquals(new int[][] {}, test1.consult("brown"));
+        
+    }
+    
+    //pruebas Borrero -Guzman    
+    //prueba add(int [ ])
+    
+    @Test
+    public void segunBGDeberiaAgregar(){
+        ICPCsAnalyzer analyzer=new ICPCsAnalyzer();
+        analyzer.add(new int[]{50,73,6,43});
+        assertEquals(analyzer.ok(),true);
+        analyzer=new ICPCsAnalyzer();
+        analyzer.add(new int[]{500,550,639});
+        assertEquals(analyzer.ok(),true);
+    }
+    
+    //prueba add(int [ ])
+       
+    @Test
+    public void segunBGNoDeberiaAgregarValuesNegativos(){
+        ICPCsAnalyzer analyzer=new ICPCsAnalyzer();
+        analyzer.add(new int[]{-50,73,6,43});
+        assertEquals(analyzer.ok(),false);
+        analyzer=new ICPCsAnalyzer();
+        analyzer.add(new int[]{0,550,639});
+        assertEquals(analyzer.ok(),false);
+    }
+    
+    //prueba addLayer()
+    
+    @Test
+    public void segunBGDeberiaAgregarLayerAleatorio(){
+        ICPCsAnalyzer analyzer=new ICPCsAnalyzer();
+        analyzer.add(new int[]{50,73,6,43});
+        analyzer.addLayers();
+        assertEquals(analyzer.ok(),true);
+    }
+    
+    //prueba cluster(string)
+        
+    @Test
+    public void segunBGNoDeberiaAgrupar(){
+        ICPCsAnalyzer analyzer=new ICPCsAnalyzer();
+        analyzer.cluster("pink");
+        assertEquals(false,analyzer.ok());
+        analyzer.add(new int[] {2,5,8,1});
+        analyzer.cluster();
+        analyzer.add(new int[] {2,9,10,11});
+        analyzer.cluster("red");
+        assertEquals(false,analyzer.ok());
+        analyzer.add(new int[] {4,2,5});
+        analyzer.cluster("brown");
+    }
+    
+    //pruebas addLayer(),addLayer(int),addLayer(int [ ])
+        
+    @Test
+    public void segunBGNoDeberiaAgregarCapa(){
+        ICPCsAnalyzer analyzer1=new ICPCsAnalyzer();
+        analyzer1.addLayers();
+        assertEquals(false,analyzer1.ok());
+        analyzer1.add(new int[] {9,6,11,7});
+        analyzer1.cluster();
+        analyzer1.addLayers();
+        assertEquals(false,analyzer1.ok());
+        analyzer1.addLayers(2);
+        assertEquals(false,analyzer1.ok());
+        analyzer1.addLayers(new int[] {2,7,8});
+        assertEquals(false,analyzer1.ok());
+    }
+    
+    //prueba select(group,pos)
+        
+    @Test
+    public void segunBGDeberiaSeleccionar(){
+        ICPCsAnalyzer analyzer2=new ICPCsAnalyzer();
+        analyzer2.add(new int[] {2,9,10,11});
+        analyzer2.cluster();
+        analyzer2.add(new int[] {7,5,4,3});
+        analyzer2.cluster();
+        analyzer2.add(new int[] {2,9,10,11});
+        analyzer2.cluster();
+        analyzer2.select("red",1);
+        assertEquals(analyzer2.ok(),true);
+        analyzer2.select("blue",1);
+        assertEquals(analyzer2.ok(),false);
+    }
+    
+    //prueba ICPCsAnalyzer(new String[])
+        
+    @Test
+    public void segunBGDeberiaIniciarConColores(){
+        ICPCsAnalyzer analyzer=new ICPCsAnalyzer(new String[]{"pink"});
+        assertEquals(analyzer.ok(),true);
+        analyzer.add(new int[] {50000,60000,800000});
+        analyzer.cluster();
+        assertEquals(analyzer.ok(),true);
+        analyzer.add(new int[]{200000,400000,500000});
+        analyzer.cluster("pink");
+        assertEquals(analyzer.ok(),true);
+    }
+    
+    /**
+     * Tears down the test fixture.
+     *
+     * Called after every test case method.
+     */
+    @After
+    public void tearDown()
+    {
+    }
+}
