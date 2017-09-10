@@ -10,6 +10,7 @@ public class Rfplicbte{
     
     private Cuadrado[][] tablero1;
     private Cuadrado[][] tablero2;
+    private Cuadrado[][] tablero3;
     private boolean isVisible;
     private int widthT, heightT;
     private int size;
@@ -23,6 +24,7 @@ public class Rfplicbte{
     public Rfplicbte(int width, int height){
         tablero1 = new Cuadrado[width][height];
         tablero2 = new Cuadrado[width][height];
+        tablero3 = new Cuadrado[width][height];
         isVisible = estado = false;
         widthT = width;
         heightT = height;
@@ -30,7 +32,8 @@ public class Rfplicbte{
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
-                tablero2[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );    
+                tablero2[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
+                tablero3[i][j] = new Cuadrado( ((width*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
             }
         }
     }
@@ -45,13 +48,14 @@ public class Rfplicbte{
         int b = referencePattern.length;
         tablero1 = new Cuadrado[a][b];
         tablero2 = new Cuadrado[a][b];
+        tablero3 = new Cuadrado[a][b];
         isVisible = estado = false;
         widthT = a;  heightT = b; size = 10;
         for (int i = 0; i < a; i++){
             for (int j = 0; j < b; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((a*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
-                
+                tablero3[i][j] = new Cuadrado( ((a*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
             }
         }    
         for(int i = 0; i < a; i++){
@@ -73,7 +77,7 @@ public class Rfplicbte{
     public void fill(int[][] cells){
         estado = false;
         for (int i = 0; i < cells.length; i++){
-            tablero2[cells[i][0]][cells[i][1]].changeColor("blue");
+            tablero1[cells[i][0]][cells[i][1]].changeColor("blue");
             estado = true;               
         }
     }
@@ -125,9 +129,42 @@ public class Rfplicbte{
         estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){
-                tablero2[i][j].changeColor(tablero1[i][j].getColor());
+                int contador = 0;
+                if (i-1 > 0 && j-1 > 0 && tablero1[i-1][j-1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (j-1 > 0 && tablero1[i][j-1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (i+1 < tablero1[0].length && j-1 > 0 && tablero1[i+1][j-1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (tablero1[i][j].getColor() != "light gray"){
+                    contador++;
+                }
+                if (i-1 > 0 && tablero1[i-1][j].getColor() != "light gray"){
+                    contador++;
+                }
+                if (i+1 < tablero1.length && tablero1[i+1][j].getColor() != "light gray"){
+                    contador++;
+                }
+                if (i-1 > 0 && j+1 < tablero1[0].length && tablero1[i-1][j+1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (j+1 < tablero1[0].length && tablero1[i][j+1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (i+1 < tablero1.length && j+1 < tablero1[0].length && tablero1[i+1][j+1].getColor() != "light gray"){
+                    contador++;
+                }
+                if (contador%2 != 0){
+                    tablero3[i][j].changeColor("blue");
+                }else if (contador%2 == 0){
+                    tablero3[i][j].changeColor("light gray");
+                }                
             }
         }
+        cloneT();
         estado = true;
     }       
     
@@ -216,5 +253,15 @@ public class Rfplicbte{
      */
     public boolean ok(){
         return estado;
+    }
+    
+    private void cloneT(){
+        estado = false;
+        for (int i = 0; i < tablero3[0].length; i++){
+            for (int j = 0; j < tablero3.length; j++){
+                tablero1[i][j].changeColor(tablero3[i][j].getColor());
+            }
+        }
+        estado = true;
     }
 }
