@@ -79,7 +79,7 @@ public class Rfplicbte{
         for (int i = 0; i < cells.length; i++){
             tablero1[cells[i][0]][cells[i][1]].changeColor("blue");
             estado = true;               
-        }
+       }
     }
     
     /**
@@ -196,6 +196,13 @@ public class Rfplicbte{
         estado = false;
         if (tablero1[row][column].getColor() != "light gray"){
             tablero1[row][column].changeColor(color);
+            tablero1[row-1][column-1].changeColor(color);
+            tablero1[row][column-1].changeColor(color);
+            tablero1[row+1][column-1].changeColor(color);
+            tablero1[row+1][column].changeColor(color);
+            tablero1[row+1][column+1].changeColor(color);
+            tablero1[row][column+1].changeColor(color);
+            tablero1[row-1][column+1].changeColor(color);
             estado = true;
         }
     }
