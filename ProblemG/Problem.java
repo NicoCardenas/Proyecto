@@ -36,10 +36,10 @@ public class Problem
         Rfplicbte cualquiera = new Rfplicbte (20,20);
         cualquiera.fill(new int[][]{{10,10},{10,9},{9,10}});
         cualquiera.makeVisible();
-        cualquiera.replicate();
-        cualquiera.replicate();
-        cualquiera.replicate();
-        cualquiera.replicate();
+        cualquiera.replicateWhitoutBug();
+        cualquiera.replicateWhitoutBug();
+        cualquiera.replicateWhitoutBug();
+        cualquiera.replicateWhitoutBug();
     }
     /**
      * Tears down the test fixture.

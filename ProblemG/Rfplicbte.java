@@ -85,7 +85,7 @@ public class Rfplicbte{
     /**
      * El método replica la primera matriz en la segunda sin errores.
      */
-    public void replicateWhitoutBug(){
+    public void replicate(){
         estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){                
@@ -125,7 +125,7 @@ public class Rfplicbte{
     /**
      * El método replicate guarda las modificaciones del primer tablero en el segundo tablero.
      */
-    public void replicate(){
+    public void replicateWhitoutBug(){
         estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){
