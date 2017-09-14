@@ -41,6 +41,17 @@ public class Problem
         cualquiera.replicateWhitoutBug();
         cualquiera.replicateWhitoutBug();
     }
+    
+    @Test
+    public void prueba2(){
+        Rfplicbte cualquiera = new Rfplicbte (20,20);
+        cualquiera.fill(new int[][]{{10,10},{10,9},{9,10}});
+        cualquiera.makeVisible();
+        cualquiera.replicateWhitoutBug();
+        cualquiera.replicate();
+        cualquiera.replicateWhitoutBug();
+        cualquiera.replicate();
+    }
     /**
      * Tears down the test fixture.
      *

@@ -72,7 +72,7 @@ public class Rfplicbte{
     
     /**
      * El método fill construye el tablero a partir de valores binarios.
-     * @param cells es una matriz lógica (entran 0 y 1).
+     * @param cells es una matriz de posiciones.
      */
     public void fill(int[][] cells){
         estado = false;
@@ -87,17 +87,10 @@ public class Rfplicbte{
      */
     public void replicate(){
         estado = false;
-        for (int i = 0; i < tablero1[0].length; i++){
-            for (int j = 0; j < tablero1.length; j++){                
-                if (tablero1[i][j].getError() && tablero1[i][j].getColor() == "light gray"){
-                    tablero2[i][j].changeColor("blue");
-                }else if (tablero1[i][j].getError() && tablero1[i][j].getColor() == "blue"){
-                    tablero2[i][j].changeColor("light gray");
-                }else{
-                    tablero2[i][j].changeColor(tablero1[i][j].getColor());
-                }
-            }
-        }
+        double a = 10*Math.random(), b = 10*Math.random();
+        int z = (int)a ,x = (int)b;
+        flip(z, x);
+        replicateWhitoutBug();        
         estado = true;
     }
     
