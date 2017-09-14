@@ -87,7 +87,7 @@ public class Rfplicbte{
      */
     public void replicate(){
         estado = false;
-        double a = 10*Math.random(), b = 10*Math.random();
+        double a = widthT*Math.random(), b = heightT*Math.random();
         int z = (int)a ,x = (int)b;
         flip(z, x);
         replicateWhitoutBug();        
@@ -122,39 +122,12 @@ public class Rfplicbte{
         estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
             for (int j = 0; j < tablero1.length; j++){
-                int contador = 0;
-                if (i-1 > 0 && j-1 > 0 && tablero1[i-1][j-1].getColor() != "light gray"){
-                    contador++;
-                }
-                if (j-1 > 0 && tablero1[i][j-1].getColor() != "light gray"){
-                    contador++;
-                }
-                if (i+1 < tablero1[0].length && j-1 > 0 && tablero1[i+1][j-1].getColor() != "light gray"){
-                    contador++;
-                }
-                if (tablero1[i][j].getColor() != "light gray"){
-                    contador++;
-                }
-                if (i-1 > 0 && tablero1[i-1][j].getColor() != "light gray"){
-                    contador++;
-                }
-                if (i+1 < tablero1.length && tablero1[i+1][j].getColor() != "light gray"){
-                    contador++;
-                }
-                if (i-1 > 0 && j+1 < tablero1[0].length && tablero1[i-1][j+1].getColor() != "light gray"){
-                    contador++;
-                }
-                if (j+1 < tablero1[0].length && tablero1[i][j+1].getColor() != "light gray"){
-                    contador++;
-                }
-                if (i+1 < tablero1.length && j+1 < tablero1[0].length && tablero1[i+1][j+1].getColor() != "light gray"){
-                    contador++;
-                }
+                int contador = vecinos(i,j);       
                 if (contador%2 != 0){
                     tablero3[i][j].changeColor("blue");
                 }else if (contador%2 == 0){
                     tablero3[i][j].changeColor("light gray");
-                }                
+                }
             }
         }
         cloneT();
@@ -188,14 +161,16 @@ public class Rfplicbte{
     public void putNexus(String color, int row, int column){
         estado = false;
         if (tablero1[row][column].getColor() != "light gray"){
-            tablero1[row][column].changeColor(color);
-            tablero1[row-1][column-1].changeColor(color);
-            tablero1[row][column-1].changeColor(color);
-            tablero1[row+1][column-1].changeColor(color);
-            tablero1[row+1][column].changeColor(color);
-            tablero1[row+1][column+1].changeColor(color);
-            tablero1[row][column+1].changeColor(color);
-            tablero1[row-1][column+1].changeColor(color);
+            if (vecinos(row,column) == 9){
+                tablero1[row][column].changeColor(color);
+                tablero1[row-1][column-1].changeColor(color);
+                tablero1[row][column-1].changeColor(color);
+                tablero1[row+1][column-1].changeColor(color);
+                tablero1[row+1][column].changeColor(color);
+                tablero1[row+1][column+1].changeColor(color);
+                tablero1[row][column+1].changeColor(color);
+                tablero1[row-1][column+1].changeColor(color);
+            }
             estado = true;
         }
     }
@@ -263,5 +238,19 @@ public class Rfplicbte{
             }
         }
         estado = true;
+    }
+    
+    private int vecinos(int i, int j){
+        int[]  dx = new int[]{-1,-1,-1,0,0,0,1,1,1};
+        int[]  dy = new int[]{-1,0,1,-1,0,1,-1,0,1};
+        ArrayList<Integer> vecinoA = new ArrayList<Integer>();
+        int contador = 0;
+        for (int k = 0; k < dx.length; k++){
+            if (i+dx[k] > 0 && i+dx[k] < tablero1.length && j+dy[k] > 0 && j+dy[k] < tablero1[0].length && tablero1[i+dx[k]][j+dy[k]].getColor() != "light gray"){
+                contador++;
+                //vecinoA.add({i,j});
+            }
+        }
+        return contador;
     }
 }

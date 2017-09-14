@@ -50,7 +50,7 @@ public class Problem
         cualquiera.replicateWhitoutBug();
         cualquiera.replicate();
         cualquiera.replicateWhitoutBug();
-        cualquiera.replicate();
+        cualquiera.replicate();     
     }
     /**
      * Tears down the test fixture.
