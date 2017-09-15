@@ -42,7 +42,7 @@ public class Rfplicbte{
      * El constructor de objeto tablero utiliza una lista para construir la matriz
      * @param referencePattern es una lista en la que la cadena esta compuesta de "."  y "#" ("." vacio y "#" activo).
      */
-    // caso de prueba {"#.##","####","...."} , {"###.",".#.#",".#.#","#..#"}
+     // caso de prueba {"#.##","####","...."} , {"###.",".#.#",".#.#","#..#"}
     public Rfplicbte(String[] referencePattern){
         int a = referencePattern[0].length();
         int b = referencePattern.length;
@@ -66,9 +66,9 @@ public class Rfplicbte{
                 }else if(referencePattern[j].charAt(i)=='.'){
                     estado = false;
                 }
+            }   
         }
-        }
-   }
+    }
     
     /**
      * El método fill construye el tablero a partir de valores binarios.
@@ -230,6 +230,30 @@ public class Rfplicbte{
         return estado;
     }
     
+    /**
+     * Permile rotar las matrices en sentido de las agujas del reloj.
+     */
+    public void rotate(){
+        
+    }
+    
+    /**
+     * 
+     */
+    public void switc(){
+    
+    }
+    
+    /**
+     * 
+     */
+    public String[][] consult(){
+        return null;
+    }
+    
+    /*
+     * clona una matriz en otra.
+     */
     private void cloneT(){
         estado = false;
         for (int i = 0; i < tablero3[0].length; i++){
@@ -240,15 +264,20 @@ public class Rfplicbte{
         estado = true;
     }
     
+    /*
+     * calcula el numero de vecinos activos
+     */
     private int vecinos(int i, int j){
         int[]  dx = new int[]{-1,-1,-1,0,0,0,1,1,1};
         int[]  dy = new int[]{-1,0,1,-1,0,1,-1,0,1};
-        ArrayList<Integer> vecinoA = new ArrayList<Integer>();
+        ArrayList<ArrayList> vecinoA = new ArrayList<ArrayList>();
         int contador = 0;
         for (int k = 0; k < dx.length; k++){
             if (i+dx[k] > 0 && i+dx[k] < tablero1.length && j+dy[k] > 0 && j+dy[k] < tablero1[0].length && tablero1[i+dx[k]][j+dy[k]].getColor() != "light gray"){
                 contador++;
-                //vecinoA.add({i,j});
+                ArrayList<Integer> a = new ArrayList<Integer>();
+                a.add(i+dx[k]);a.add(j+dy[k]);
+                vecinoA.add(a);
             }
         }
         return contador;
