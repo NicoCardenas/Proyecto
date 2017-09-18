@@ -11,6 +11,7 @@ public class Rfplicbte{
     private Cuadrado[][] tablero1;
     private Cuadrado[][] tablero2;
     private Cuadrado[][] tablero3;
+    private Cuadrado[][] tablero4;
     private boolean isVisible;
     private int widthT, heightT;
     private int size;
@@ -25,6 +26,7 @@ public class Rfplicbte{
         tablero1 = new Cuadrado[width][height];
         tablero2 = new Cuadrado[width][height];
         tablero3 = new Cuadrado[width][height];
+        tablero4 = new Cuadrado[width][height];
         isVisible = estado = false;
         widthT = width;
         heightT = height;
@@ -34,6 +36,7 @@ public class Rfplicbte{
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
                 tablero3[i][j] = new Cuadrado( ((width*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
+                tablero4[i][j] = new Cuadrado( ((width*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
             }
         }
     }
@@ -49,6 +52,7 @@ public class Rfplicbte{
         tablero1 = new Cuadrado[a][b];
         tablero2 = new Cuadrado[a][b];
         tablero3 = new Cuadrado[a][b];
+        tablero4 = new Cuadrado[a][b];
         isVisible = estado = false;
         widthT = a;  heightT = b; size = 10;
         for (int i = 0; i < a; i++){
@@ -56,6 +60,7 @@ public class Rfplicbte{
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((a*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
                 tablero3[i][j] = new Cuadrado( ((a*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
+                tablero4[i][j] = new Cuadrado( ((a*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
             }
         }    
         for(int i = 0; i < a; i++){
@@ -77,8 +82,10 @@ public class Rfplicbte{
     public void fill(int[][] cells){
         estado = false;
         for (int i = 0; i < cells.length; i++){
-            tablero1[cells[i][0]][cells[i][1]].changeColor("blue");
-            estado = true;               
+            if (0 < cells[i][0]-1 && cells[i][0]-1 < widthT && 0 < cells[i][1]-1 && cells[i][1]-1 < heightT){
+                tablero1[cells[i][0]-1][cells[i][1]-1].changeColor("blue");
+                estado = true;
+            }                           
        }
     }
     
@@ -101,16 +108,16 @@ public class Rfplicbte{
      */
     public void flip(int row, int column){
         estado = false;        
-        if (!tablero1[row][column].getError()){
-            tablero1[row][column].setError(true);
+        if (!tablero1[row-1][column-1].getError()){
+            tablero1[row-1][column-1].setError(true);
         }else{
-            tablero1[row][column].setError(false);
+            tablero1[row-1][column-1].setError(false);
         }
-        if (row < widthT && column < heightT && tablero1[row][column].getColor() == "light gray"){
-            tablero1[row][column].changeColor("blue");
+        if (row-1 < widthT && column-1 < heightT && tablero1[row-1][column-1].getColor() == "light gray"){
+            tablero1[row-1][column-1].changeColor("blue");
             estado = true;
-        }else if (row < widthT && column < heightT){
-            tablero1[row][column].changeColor("light gray");
+        }else if (row-1 < widthT && column-1 < heightT){
+            tablero1[row-1][column-1].changeColor("light gray");
             estado = true;
         }
     }
@@ -130,7 +137,7 @@ public class Rfplicbte{
                 }
             }
         }
-        cloneT();
+        cloneT(1,3);
         estado = true;
     }       
     
@@ -234,31 +241,116 @@ public class Rfplicbte{
      * Permile rotar las matrices en sentido de las agujas del reloj.
      */
     public void rotate(){
-        
+        estado =false;
+        for (int i = 0; i < tablero1[0].length; i++){
+            for (int j = 0; j < tablero1.length; j++){
+                tablero3[i][j].changeColor(tablero1[j][tablero1.length-i-1].getColor());
+                tablero4[i][j].changeColor(tablero2[j][tablero1.length-i-1].getColor());
+            }
+        }
+        cloneT(1,3);
+        cloneT(2,4);
+        estado = true;
     }
     
     /**
      * 
      */
-    public void switc(){
-    
+    public void switchT(){        
+        cloneT(3,1);
+        cloneT(1,2);
+        cloneT(2,3);
     }
     
     /**
      * 
      */
     public String[][] consult(){
-        return null;
+        String[][] res = new String[1][2];
+        String lista = new String();
+        String lista2 = new String();
+        for (int i = 0; i < widthT; i++){
+            for (int j = 0; j < heightT; j++){
+                if (tablero1[i][j].getColor() == "light gray"){
+                    lista+=".";
+                }else if(tablero1[i][j].getColor() != "light gray"){
+                    lista+="#";
+                }                
+                if (tablero2[i][j].getColor() == "light gray"){
+                    lista2+=".";
+                }else if(tablero2[i][j].getColor() != "light gray"){
+                    lista2+="#";
+                }
+            }
+        }
+        res[0][0] = lista; res[0][1] = lista2;
+        return res;
     }
+    
+    /**
+     * 
+     */
+    public void zoom(char c){
+        makeInvisible();
+        int sizeC = tablero1[0][0].getSize();
+        if (c == '+'){
+            sizeC+=10;
+        }else if(c == '-'){
+            sizeC-=10;
+        }
+        for (int i = 0; i < widthT; i++){
+            for (int j = 0; j < heightT; j++){                    
+                tablero1[i][j].setSize(sizeC);
+                tablero2[i][j].setSize(sizeC);
+                tablero1[i][j].setPosition(0,0);
+                tablero2[i][j].setPosition(0,0);
+                tablero1[i][j].setPosition(((10+(sizeC+1)*i)), (10+(sizeC+1)*j));
+                tablero2[i][j].setPosition((((widthT*(sizeC+1))+20)+((sizeC+1)*i)), (10+(sizeC+1)*j));
+            }
+        }
+        makeVisible();
+    }    
     
     /*
      * clona una matriz en otra.
      */
-    private void cloneT(){
+    private void cloneT(int num,int num2){
         estado = false;
-        for (int i = 0; i < tablero3[0].length; i++){
-            for (int j = 0; j < tablero3.length; j++){
-                tablero1[i][j].changeColor(tablero3[i][j].getColor());
+        for (int i = 0; i < tablero1[0].length; i++){
+            for (int j = 0; j < tablero1.length; j++){
+                if (num == 1 && num2 != 1){
+                    if (num2 == 2){
+                        tablero1[i][j].changeColor(tablero2[i][j].getColor());
+                    }else if (num2 == 3){
+                        tablero1[i][j].changeColor(tablero3[i][j].getColor());
+                    }else if (num2 == 4){
+                        tablero1[i][j].changeColor(tablero4[i][j].getColor());
+                    }                    
+                }else if (num == 2 && num2 != 2){
+                    if (num2 == 1){
+                        tablero2[i][j].changeColor(tablero1[i][j].getColor());
+                    }else if (num2 == 3){
+                        tablero2[i][j].changeColor(tablero3[i][j].getColor());
+                    }else if (num2 == 4){
+                        tablero2[i][j].changeColor(tablero4[i][j].getColor());
+                    }
+                }else if (num == 3 && num2 != 3){
+                    if (num2 == 1){
+                        tablero3[i][j].changeColor(tablero1[i][j].getColor());
+                    }else if (num2 == 2){
+                        tablero3[i][j].changeColor(tablero2[i][j].getColor());
+                    }else if (num2 == 4){
+                        tablero3[i][j].changeColor(tablero4[i][j].getColor());
+                    }
+                }else if (num == 4 && num2 != 4){
+                    if (num2 == 1){
+                        tablero4[i][j].changeColor(tablero1[i][j].getColor());
+                    }else if (num2 == 2){
+                        tablero4[i][j].changeColor(tablero2[i][j].getColor());
+                    }else if (num2 == 3){
+                        tablero4[i][j].changeColor(tablero3[i][j].getColor());
+                    }
+                }
             }
         }
         estado = true;

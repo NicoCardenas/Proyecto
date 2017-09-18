@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 /**
  * A square that can be manipulated and that draws itself on a canvas.
@@ -139,4 +140,40 @@ public class Cuadrado{
          error = value;
     }
     
+    /**
+     * 
+     */
+    public void setSize(int size){
+        height = size;
+        width = size;
+    }
+    
+    /**
+     * 
+     */
+    public void setPosition(int x, int y){
+        xPosition = x;
+        yPosition = y;
+    }
+    
+    /**
+     * 
+     */
+    public int getSize(){
+        return width;
+    }
+    
+    /**
+     * 
+     */
+    public int getPositionX(){
+        return xPosition;
+    }
+    
+    /**
+     * 
+     */
+    public int getPositionY(){
+        return yPosition;
+    }  
 }
