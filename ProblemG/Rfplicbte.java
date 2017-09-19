@@ -3,8 +3,9 @@ import java.util.*;
 /**
  * A square that can be manipulated and that draws itself on a canvas.
  * 
- * @author  Paola Cuellar y Nicolás Cárdenas
- * @version 1.5  (03 September 2017)
+ * @author  Paola Cuellar
+ * @author Nicolás Cárdenas
+ * @version 2.0  (18 September 2017)
  */
 public class Rfplicbte{
     
@@ -33,10 +34,10 @@ public class Rfplicbte{
         size = 10;
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
+                tablero1[i][j] = new Cuadrado( (10+(size+1)*i), 10+((size+1)*j), size);
                 tablero2[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
-                tablero3[i][j] = new Cuadrado( ((width*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
-                tablero4[i][j] = new Cuadrado( ((width*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
+                tablero3[i][j] = new Cuadrado( (10+(size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
+                tablero4[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
             }
         }
     }
@@ -59,20 +60,14 @@ public class Rfplicbte{
             for (int j = 0; j < b; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((a*(size+1))+20)+((size+1)*i) , (10+(size+1)*j) , size );
-                tablero3[i][j] = new Cuadrado( ((a*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
-                tablero4[i][j] = new Cuadrado( ((a*2*(size+1))+30)+((size+1)*i) , (10+(size+1)*j) , size);
+                if (referencePattern[j].charAt(i)=='#'){
+                   tablero2[i][j].changeColor("blue");                   
+                }
+                tablero3[i][j] = new Cuadrado( (10+(size+1)*i) , ((heightT*(size+1))+20)+((size+1)*j) , size);
+                tablero4[i][j] = new Cuadrado( ((widthT*(size+1))+20)+((size+1)*i) , ((heightT*(size+1))+20)+((size+1)*j) , size);
+                estado = true;
             }
         }    
-        for(int i = 0; i < a; i++){
-            for(int j = 0; j < b; j++){
-                if (referencePattern[j].charAt(i)=='#'){
-                   tablero2[i][j].changeColor("blue");
-                   estado = true;
-                }else if(referencePattern[j].charAt(i)=='.'){
-                    estado = false;
-                }
-            }   
-        }
     }
     
     /**
@@ -94,10 +89,9 @@ public class Rfplicbte{
      */
     public void replicate(){
         estado = false;
-        double a = widthT*Math.random(), b = heightT*Math.random();
-        int z = (int)a ,x = (int)b;
-        flip(z, x);
-        replicateWhitoutBug();        
+        Random random = new Random();
+        flip(random.nextInt(widthT+1), random.nextInt(heightT+1));
+        replicateWhitoutBug();
         estado = true;
     }
     
@@ -107,11 +101,10 @@ public class Rfplicbte{
      * @param column columna de la celda seleccionada.
      */
     public void flip(int row, int column){
-        estado = false;        
-        if (!tablero1[row-1][column-1].getError()){
-            tablero1[row-1][column-1].setError(true);
-        }else{
-            tablero1[row-1][column-1].setError(false);
+        estado = false;
+        if (row == 0 || column == 0){
+            row+=1;
+            column+=1;
         }
         if (row-1 < widthT && column-1 < heightT && tablero1[row-1][column-1].getColor() == "light gray"){
             tablero1[row-1][column-1].changeColor("blue");
@@ -137,13 +130,13 @@ public class Rfplicbte{
                 }
             }
         }
-        cloneT(1,3);
+        cloneT(tablero1,tablero3);
         estado = true;
     }       
     
     /**
      * El método success verifica que el patron en ambas matrices sea igual
-     * @return retorna el valor de la comparacion de las dos matrices
+     * @return Retorna el valor de la comparacion de las dos matrices
      */
     public boolean success(){
         boolean res = true;
@@ -248,22 +241,23 @@ public class Rfplicbte{
                 tablero4[i][j].changeColor(tablero2[j][tablero1.length-i-1].getColor());
             }
         }
-        cloneT(1,3);
-        cloneT(2,4);
+        cloneT(tablero1,tablero3);
+        cloneT(tablero2,tablero4);
         estado = true;
     }
     
     /**
-     * 
+     * Intercambiar la matriz de referencia con la de edición. 
      */
     public void switchT(){        
-        cloneT(3,1);
-        cloneT(1,2);
-        cloneT(2,3);
+        cloneT(tablero3,tablero1);
+        cloneT(tablero1,tablero2);
+        cloneT(tablero2,tablero3);
     }
     
     /**
-     * 
+     * Consultar el patrón de las dos matrices. 
+     * @return Retorna una matriz donde están los patrones de la matriz de edición y la matriz de referencia.  
      */
     public String[][] consult(){
         String[][] res = new String[1][2];
@@ -288,14 +282,15 @@ public class Rfplicbte{
     }
     
     /**
-     * 
+     * Realiza un zoom de las dos matrices en 10 unidades .
+     * @param zoom un de estos dos caracteres '+' o '-'.
      */
     public void zoom(char c){
         makeInvisible();
         int sizeC = tablero1[0][0].getSize();
         if (c == '+'){
             sizeC+=10;
-        }else if(c == '-'){
+        }else if(c == '-' && sizeC > 10){
             sizeC-=10;
         }
         for (int i = 0; i < widthT; i++){
@@ -312,47 +307,15 @@ public class Rfplicbte{
     }    
     
     /*
-     * clona una matriz en otra.
+     * clona una matriz a otra.
      */
-    private void cloneT(int num,int num2){
+    private void cloneT(Cuadrado[][] tablero1, Cuadrado[][] tablero2){
         estado = false;
         for (int i = 0; i < tablero1[0].length; i++){
-            for (int j = 0; j < tablero1.length; j++){
-                if (num == 1 && num2 != 1){
-                    if (num2 == 2){
-                        tablero1[i][j].changeColor(tablero2[i][j].getColor());
-                    }else if (num2 == 3){
-                        tablero1[i][j].changeColor(tablero3[i][j].getColor());
-                    }else if (num2 == 4){
-                        tablero1[i][j].changeColor(tablero4[i][j].getColor());
-                    }                    
-                }else if (num == 2 && num2 != 2){
-                    if (num2 == 1){
-                        tablero2[i][j].changeColor(tablero1[i][j].getColor());
-                    }else if (num2 == 3){
-                        tablero2[i][j].changeColor(tablero3[i][j].getColor());
-                    }else if (num2 == 4){
-                        tablero2[i][j].changeColor(tablero4[i][j].getColor());
-                    }
-                }else if (num == 3 && num2 != 3){
-                    if (num2 == 1){
-                        tablero3[i][j].changeColor(tablero1[i][j].getColor());
-                    }else if (num2 == 2){
-                        tablero3[i][j].changeColor(tablero2[i][j].getColor());
-                    }else if (num2 == 4){
-                        tablero3[i][j].changeColor(tablero4[i][j].getColor());
-                    }
-                }else if (num == 4 && num2 != 4){
-                    if (num2 == 1){
-                        tablero4[i][j].changeColor(tablero1[i][j].getColor());
-                    }else if (num2 == 2){
-                        tablero4[i][j].changeColor(tablero2[i][j].getColor());
-                    }else if (num2 == 3){
-                        tablero4[i][j].changeColor(tablero3[i][j].getColor());
-                    }
-                }
+            for (int j = 0; j < tablero1.length; j++){                
+                tablero1[i][j].changeColor(tablero2[i][j].getColor());                    
             }
-        }
+        }        
         estado = true;
     }
     
@@ -362,14 +325,10 @@ public class Rfplicbte{
     private int vecinos(int i, int j){
         int[]  dx = new int[]{-1,-1,-1,0,0,0,1,1,1};
         int[]  dy = new int[]{-1,0,1,-1,0,1,-1,0,1};
-        ArrayList<ArrayList> vecinoA = new ArrayList<ArrayList>();
         int contador = 0;
         for (int k = 0; k < dx.length; k++){
             if (i+dx[k] > 0 && i+dx[k] < tablero1.length && j+dy[k] > 0 && j+dy[k] < tablero1[0].length && tablero1[i+dx[k]][j+dy[k]].getColor() != "light gray"){
                 contador++;
-                ArrayList<Integer> a = new ArrayList<Integer>();
-                a.add(i+dx[k]);a.add(j+dy[k]);
-                vecinoA.add(a);
             }
         }
         return contador;

@@ -1,5 +1,3 @@
-
-
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +29,7 @@ public class RfplicbteTest {
     }
     
     @Test
-    public void prueba(){
+    public void debeCrearLaSimulacionDelProblemaSinErrores(){
         Rfplicbte cualquiera = new Rfplicbte (20,20);
         cualquiera.fill(new int[][]{{10,10},{10,9},{9,10}});
         cualquiera.makeVisible();
@@ -42,7 +40,7 @@ public class RfplicbteTest {
     }
     
     @Test
-    public void prueba2(){
+    public void debeCrearLaSimulacionDelProblemaConErrores(){
         Rfplicbte cualquiera = new Rfplicbte (20,20);
         cualquiera.fill(new int[][]{{10,10},{10,9},{9,10}});
         cualquiera.makeVisible();
@@ -53,11 +51,21 @@ public class RfplicbteTest {
     }
     
     @Test
-    public void pruebarot(){
-        Rfplicbte cualquiera = new Rfplicbte (10,10);
+    public void debePoderRotarLasDosMatrices(){
+        String reference[]={"..........",
+                            "....#.....",
+                            "....#.....",
+                            "....#.....",
+                            "....#.....",
+                            "..........",
+                            "..........",
+                            "..........",
+                            "..........",
+                            ".........."};
+        Rfplicbte cualquiera = new Rfplicbte (reference);
         cualquiera.fill(new int[][]{{5,2},{5,3},{5,4},{5,5}});
         cualquiera.makeVisible();
-        cualquiera.rotate();     
+        cualquiera.rotate();
     }
     
     /**
