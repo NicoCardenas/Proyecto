@@ -77,7 +77,7 @@ public class Rfplicbte{
     public void fill(int[][] cells){
         estado = false;
         for (int i = 0; i < cells.length; i++){
-            if (0 < cells[i][0]-1 && cells[i][0]-1 < widthT && 0 < cells[i][1]-1 && cells[i][1]-1 < heightT){
+            if (0 <= cells[i][0]-1 && cells[i][0]-1 < widthT && 0 <= cells[i][1]-1 && cells[i][1]-1 < heightT){
                 tablero1[cells[i][0]-1][cells[i][1]-1].changeColor("blue");
                 estado = true;
             }                           
