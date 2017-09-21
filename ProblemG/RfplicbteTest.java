@@ -37,6 +37,8 @@ public class RfplicbteTest {
         cualquiera.replicateWhitoutBug();
         cualquiera.replicateWhitoutBug();
         cualquiera.replicateWhitoutBug();
+        cualquiera.makeInvisible();        
+        assertTrue(cualquiera.ok());
     }
     
     @Test
@@ -47,7 +49,9 @@ public class RfplicbteTest {
         cualquiera.replicateWhitoutBug();
         cualquiera.replicate();
         cualquiera.replicateWhitoutBug();
-        cualquiera.replicate();     
+        cualquiera.replicate();
+        cualquiera.makeInvisible();        
+        assertTrue(cualquiera.ok());
     }
     
     @Test
@@ -66,6 +70,8 @@ public class RfplicbteTest {
         cualquiera.fill(new int[][]{{5,2},{5,3},{5,4},{5,5}});
         cualquiera.makeVisible();
         cualquiera.rotate();
+        cualquiera.makeInvisible();
+        assertTrue(cualquiera.success());
     }
     
     /**

@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.*;
 
 /**
  * A square that can be manipulated and that draws itself on a canvas.
@@ -90,7 +91,12 @@ public class Rfplicbte{
     public void replicate(){
         estado = false;
         Random random = new Random();
-        flip(random.nextInt(widthT+1), random.nextInt(heightT+1));
+        int a = random.nextInt(widthT+1), b = random.nextInt(heightT+1);
+        while (a <= 0 || b <= 0 || b >= widthT+1 || a >= heightT+1){
+            a = random.nextInt(widthT+1); b = random.nextInt(heightT+1);
+        }
+        System.out.println(a+" "+b);
+        flip(a,b);
         replicateWhitoutBug();
         estado = true;
     }
@@ -107,10 +113,10 @@ public class Rfplicbte{
             column+=1;
         }
         if (row-1 < widthT && column-1 < heightT && tablero1[row-1][column-1].getColor() == "light gray"){
-            tablero1[row-1][column-1].changeColor("blue");
+            tablero1[column-1][row-1].changeColor("blue");
             estado = true;
         }else if (row-1 < widthT && column-1 < heightT){
-            tablero1[row-1][column-1].changeColor("light gray");
+            tablero1[column-1][row-1].changeColor("light gray");
             estado = true;
         }
     }
@@ -219,7 +225,7 @@ public class Rfplicbte{
      * El método finish termina el programa.
      */
     public void finish(){
-        System.exit(0);
+        //System.exit(0);
     }
     
     /**
