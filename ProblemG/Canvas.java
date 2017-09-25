@@ -207,5 +207,8 @@ public class Canvas{
             graphic.fill(shape);
         }
     }
-
+    
+    public void close(){
+        frame.dispose();
+    }
 }

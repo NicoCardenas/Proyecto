@@ -120,9 +120,7 @@ public class RfplicbteSpecialTest
         r.replicateWhitoutBug();
         pause();        
         assertTrue(ok());
-        r.makeInvisible();
-    
- 
+        r.makeInvisible(); 
     }
     
     @Test
@@ -212,7 +210,33 @@ public class RfplicbteSpecialTest
         r.makeInvisible();        
     }   
     
-    
+    @Test
+    public void deberiaRotar(){
+        String reference[]={".#...#...#",
+                            "##..##..##",
+                            "..........",
+                            "..........",
+                            ".#...#...#",
+                            "##..##..##",
+                            "..........",
+                            "..........",
+                            ".#...#...#",
+                            "##..##..##"};
+        Rfplicbte r= new Rfplicbte(reference);
+        int inicio[][]={{5,6},{6,5},{6,6}};
+        r.makeVisible();
+        r.fill(inicio);
+        r.rotate();
+        pause();
+        r.rotate();
+        pause();
+        r.rotate();
+        pause();
+        r.rotate();
+        pause();
+        assertTrue(ok());
+        r.makeInvisible();
+    }
  
     private void pause(){
        Canvas.getCanvas().wait(WAIT);
