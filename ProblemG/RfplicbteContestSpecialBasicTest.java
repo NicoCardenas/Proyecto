@@ -15,7 +15,7 @@ public class RfplicbteContestSpecialBasicTest
 
     @Test
     public void deberiaResolverCaso1(){
-        String given [] = { "..#...#...#",
+        String given [] = { ".#...#...#",
                             "##..##..##",
                             "##.#.##...",
                             "##.#.##...",

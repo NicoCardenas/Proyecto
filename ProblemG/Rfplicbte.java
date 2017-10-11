@@ -61,7 +61,7 @@ public class Rfplicbte{
             for (int j = 0; j < b; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((a*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
-                if (referencePattern[j].charAt(i)=='#'){
+                if (referencePattern[i].charAt(j)=='#'){
                    tablero2[i][j].changeColor("blue");                   
                 }
                 tablero3[i][j] = new Cuadrado( (10+(size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
