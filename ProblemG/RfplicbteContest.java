@@ -13,18 +13,22 @@ public class RfplicbteContest{
         
     }
 
-    public String[] solve(String[] referencePattern){
+    public static String[] solve(String[] referencePattern){
         Rfplicbte var = new Rfplicbte(referencePattern);
-        var.makeVisible();
-        return referencePattern;
+        String[] res = new String[var.getHeight()];
+        for (int i = var.getHeight(); i > 2; i-=2){
+           res = var.solve();
+        }        
+        return res;
     }
     
-    public void simulate(String[] referencePattern, boolean slow){
+    public static void simulate(String[] referencePattern, boolean slow){
         Rfplicbte var = new Rfplicbte(referencePattern);
         int[][] patron = convert(solve(referencePattern));
         var.fill(patron);
         var.makeVisible();
-        for (int i = 1; i < var.getHeight(); i+=2){
+        pause(); 
+        for (int i = 2; i < var.getHeight(); i+=2){
             if (slow){
                 pause();
             }
@@ -32,12 +36,12 @@ public class RfplicbteContest{
         }
     }
     
-    private int[][] convert(String[] patron){
+    private static int[][] convert(String[] patron){
         int[][] cells = new int[patron.length*patron[0].length()][2];
         int count = 0;
         for(int i = 0; i < patron.length; i++){
             for(int j = 0; j < patron[i].length(); j++){
-                if (patron[i].charAt(j)== '#'){
+                if (patron[i].charAt(j) == '#'){
                     cells[count][0] = j+1;
                     cells[count][1] = i+1;
                     count+=1;
@@ -47,7 +51,7 @@ public class RfplicbteContest{
         return cells;
     }
     
-    private void pause(){
+    private static void pause(){
        Canvas.getCanvas().wait(1000);
     }
 }

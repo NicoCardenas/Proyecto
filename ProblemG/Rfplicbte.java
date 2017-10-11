@@ -358,6 +358,37 @@ public class Rfplicbte{
         return tablero1[0].length;
     }
     
+    public int getValue(int x, int y, Cuadrado[][] tablero){
+        int res = 0;
+        if (tablero[x][y].getColor() != "light gray") res = 1;
+        return res;
+    }
+    
+    public String[] solve(){
+        String[] res = new String[tablero2[0].length];
+        for (int i = 0; i < tablero2.length; i++){
+            String pat = "";
+            for (int j = 0; j < tablero2[0].length; j++){                
+                if (i-1 < 0 || j-1 < 0){
+                    tablero1[i][j].changeColor("light gray");
+                    pat += ".";
+                }else{
+                    int XOR = (vecinos(i-1,j-1)-getValue(i,j,tablero1)+getValue(i-1, j-1, tablero2))%2;
+                    if (XOR == 0){
+                        tablero1[i][j].changeColor("light gray");
+                        pat += ".";
+                    }else{
+                        tablero1[i][j].changeColor("blue");
+                        pat += "#";
+                    }
+                }
+            }
+            res[i] = pat;
+        }
+        cloneT(tablero2,tablero1);
+        return res;
+    }   
+    
     /*
      * clona una matriz a otra.
      */

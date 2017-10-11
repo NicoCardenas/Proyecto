@@ -63,7 +63,7 @@ public class RfplicbteSpecialTest
                             "..........",
                             "..........",
                             ".#...#...#",
-                            "##..##..##"};
+                            "##..##..##"};                            
         Rfplicbte r= new Rfplicbte(reference);
         int inicio[][]={{5,6},{6,5},{6,6}};
         r.makeVisible();
