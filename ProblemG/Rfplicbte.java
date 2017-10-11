@@ -7,7 +7,7 @@ import javax.swing.JFrame;
  * 
  * @author  Paola Cuellar
  * @author Nicolás Cárdenas
- * @version 2.0  (18 September 2017)
+ * @version 2.1  (10 Octubre 2017)
  */
 public class Rfplicbte{
     
@@ -348,7 +348,15 @@ public class Rfplicbte{
             }
         }
         makeVisible();
-    }    
+    }
+    
+    public int getHeight(){
+        return tablero1.length;
+    }
+    
+    public int getWidth(){
+        return tablero1[0].length;
+    }
     
     /*
      * clona una matriz a otra.
