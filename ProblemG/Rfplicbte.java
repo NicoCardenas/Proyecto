@@ -26,21 +26,21 @@ public class Rfplicbte{
      * @param height ancho de la matriz.
      */
     public Rfplicbte(int width, int height){
-        tablero1 = new Cuadrado[height][width];
-        tablero2 = new Cuadrado[height][width];
-        tablero3 = new Cuadrado[height][width];
-        tablero4 = new Cuadrado[height][width];
+        tablero1 = new Cuadrado[width][height];
+        tablero2 = new Cuadrado[width][height];
+        tablero3 = new Cuadrado[width][height];
+        tablero4 = new Cuadrado[width][height];
         isVisible = estado = fin = false;        
         size = 10;
-        for (int i = 0; i < height; i++){
-            for (int j = 0; j < width; j++){
+        for (int i = 0; i < width; i++){
+            for (int j = 0; j < height; j++){
                 tablero1[i][j] = new Cuadrado( (10+(size+1)*i), 10+((size+1)*j), size);
                 tablero2[i][j] = new Cuadrado( ((width*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
                 tablero3[i][j] = new Cuadrado( (10+(size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
                 tablero4[i][j] = new Cuadrado( ((width*(size+1))+20)+((size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
             }
         }
-        h = tablero1[height-1][width-1].getPositionY()+11; w = tablero1[height-1][width-1].getPositionX()+11;        
+        h = tablero1[width-1][height-1].getPositionY()+11; w = tablero1[width-1][height-1].getPositionX()+11;        
     }
     
     /**
@@ -49,8 +49,8 @@ public class Rfplicbte{
      */
      // caso de prueba {"#.##","####","...."} , {"###.",".#.#",".#.#","#..#"}
     public Rfplicbte(String[] referencePattern){
-        int a = referencePattern.length;
-        int b = referencePattern[0].length();
+        int a = referencePattern[0].length();
+        int b = referencePattern.length;
         tablero1 = new Cuadrado[a][b];
         tablero2 = new Cuadrado[a][b];
         tablero3 = new Cuadrado[a][b];
@@ -61,7 +61,7 @@ public class Rfplicbte{
             for (int j = 0; j < b; j++){
                 tablero1[i][j] = new Cuadrado((10+(size+1)*i),10+((size+1)*j),size);
                 tablero2[i][j] = new Cuadrado( ((a*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
-                if (referencePattern[i].charAt(j)=='#'){
+                if (referencePattern[j].charAt(i)=='#'){
                    tablero2[i][j].changeColor("blue");                   
                 }
                 tablero3[i][j] = new Cuadrado( (10+(size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
@@ -69,7 +69,7 @@ public class Rfplicbte{
                 estado = true;
             }
         }    
-        h = tablero1[a-1][b-1].getPositionY()+11; w = tablero1[a-1][b-1].getPositionX()+11;
+        w = tablero1[a-1][b-1].getPositionY()+11; h = tablero1[a-1][b-1].getPositionX()+11;
     }
     
     /**
@@ -264,16 +264,17 @@ public class Rfplicbte{
      */
     public void rotate(){
         if (!fin){
-            estado =false;       
+            estado = false;       
             makeInvisible();
-            tablero3 = new Cuadrado [tablero1[0].length][tablero1.length];
-            tablero4 = new Cuadrado [tablero1[0].length][tablero1.length];
+            tablero3 = new Cuadrado [tablero1.length][tablero1[0].length];
+            tablero4 = new Cuadrado [tablero1.length][tablero1[0].length];
             int a,b;
             for (int i = 0; i < tablero1.length; i++){
                 for (int j = 0; j < tablero1[0].length; j++){
                     tablero1[i][j].setPosition(h-tablero1[i][j].getPositionY()-1,tablero1[i][j].getPositionX());
                     a = pos(tablero1[i][j].getPositionY());
                     b = pos(tablero1[i][j].getPositionX());
+                    System.out.println("a: "+a+" b: "+b+" i: "+i+" j: "+j);
                     tablero3[b-1][a-1] = tablero1[i][j];
                     tablero2[i][j].setPosition(w+h-tablero2[i][j].getPositionY()-2,tablero1[i][j].getPositionY());                
                     tablero4[b-1][a-1] = tablero2[i][j];
