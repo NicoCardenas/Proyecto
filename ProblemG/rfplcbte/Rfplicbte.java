@@ -178,19 +178,21 @@ public class Rfplicbte{
             estado = false;
             row-=1;column-=1;
             if (tablero1[column][row].getColor() != "light gray"){
-                System.out.println(row+" "+column);
-                if (vecinos(row, column) > 3) tablero1[column][row].changeColor(color);
-                if (column+1 < tablero1.length && tablero1[column+1][row].getColor() != "light gray"){
-                    putNexus(color, row+1, column+2);
-                }
-                if (row+1 < tablero1[0].length && tablero1[column][row+1].getColor() != "light gray"){
-                    putNexus(color, row+2, column+1);
-                }
-                if (0 <= column-1 && tablero1[column-1][row].getColor() != "light gray" && tablero1[column-1][row].getColor() != color){
-                    putNexus(color, row+1, column);
-                }
-                if (0 <= row-1 && tablero1[column][row-1].getColor() != "light gray" && tablero1[column][row-1].getColor() != color){
-                    putNexus(color, row, column+1);
+                if (vecinos(row, column) > 3){
+                    tablero1[column][row].setOriginColor(tablero1[column][row].getColor());
+                    tablero1[column][row].changeColor(color);
+                    if (column+1 < tablero1.length && tablero1[column+1][row].getColor() != "light gray"){
+                        putNexus(color, row+1, column+2);
+                    }
+                    if (row+1 < tablero1[0].length && tablero1[column][row+1].getColor() != "light gray"){
+                        putNexus(color, row+2, column+1);
+                    }
+                    if (0 <= column-1 && tablero1[column-1][row].getColor() != "light gray" && tablero1[column-1][row].getColor() != color){
+                        putNexus(color, row+1, column);
+                    }
+                    if (0 <= row-1 && tablero1[column][row-1].getColor() != "light gray" && tablero1[column][row-1].getColor() != color){
+                        putNexus(color, row, column+1);
+                    }
                 }
                 estado = true;
             }
@@ -206,7 +208,7 @@ public class Rfplicbte{
         estado = false;
         for (int i = 0 ; i < tablero1.length; i++){
             for (int j = 0 ; j < tablero1[0].length && tablero1[i][j].getColor() == color; j++){
-                tablero1[i][j].changeColor("light gray");
+                tablero1[i][j].changeColor(tablero1[i][j].popOriginColor());
                 estado = true;           
             }
         }                    
