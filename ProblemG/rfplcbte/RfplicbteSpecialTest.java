@@ -1,8 +1,12 @@
+package rfplcbte;
+
 import javax.swing.JOptionPane;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import shapes.*;
 
 /**
  * The test class RfplicbteTest.

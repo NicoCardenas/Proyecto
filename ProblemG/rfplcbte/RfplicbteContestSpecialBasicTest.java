@@ -1,5 +1,6 @@
-import javax.swing.JOptionPane;
+package rfplcbte;
 
+import javax.swing.JOptionPane;
 import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;

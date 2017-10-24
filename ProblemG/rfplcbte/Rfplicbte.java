@@ -1,6 +1,9 @@
+package rfplcbte;
+
 import java.util.*;
 import javax.swing.*;
 import javax.swing.JFrame;
+import shapes.*;
 
 /**
  * A square that can be manipulated and that draws itself on a canvas.
@@ -274,7 +277,6 @@ public class Rfplicbte{
                     tablero1[i][j].setPosition(h-tablero1[i][j].getPositionY()-1,tablero1[i][j].getPositionX());
                     a = pos(tablero1[i][j].getPositionY());
                     b = pos(tablero1[i][j].getPositionX());
-                    System.out.println("a: "+a+" b: "+b+" i: "+i+" j: "+j);
                     tablero3[b-1][a-1] = tablero1[i][j];
                     tablero2[i][j].setPosition(w+h-tablero2[i][j].getPositionY()-2,tablero1[i][j].getPositionY());                
                     tablero4[b-1][a-1] = tablero2[i][j];
