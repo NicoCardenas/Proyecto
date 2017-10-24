@@ -176,16 +176,21 @@ public class Rfplicbte{
     public void putNexus(String color, int row, int column){
         if (!fin){
             estado = false;
-            if (tablero1[row][column].getColor() != "light gray"){
-                if (vecinos(row,column) == 9){
-                    tablero1[row][column].changeColor(color);
-                    tablero1[row-1][column-1].changeColor(color);
-                    tablero1[row][column-1].changeColor(color);
-                    tablero1[row+1][column-1].changeColor(color);
-                    tablero1[row+1][column].changeColor(color);
-                    tablero1[row+1][column+1].changeColor(color);
-                    tablero1[row][column+1].changeColor(color);
-                    tablero1[row-1][column+1].changeColor(color);
+            row-=1;column-=1;
+            if (tablero1[column][row].getColor() != "light gray"){
+                System.out.println(row+" "+column);
+                if (vecinos(row, column) > 3) tablero1[column][row].changeColor(color);
+                if (column+1 < tablero1.length && tablero1[column+1][row].getColor() != "light gray"){
+                    putNexus(color, row+1, column+2);
+                }
+                if (row+1 < tablero1[0].length && tablero1[column][row+1].getColor() != "light gray"){
+                    putNexus(color, row+2, column+1);
+                }
+                if (0 <= column-1 && tablero1[column-1][row].getColor() != "light gray" && tablero1[column-1][row].getColor() != color){
+                    putNexus(color, row+1, column);
+                }
+                if (0 <= row-1 && tablero1[column][row-1].getColor() != "light gray" && tablero1[column][row-1].getColor() != color){
+                    putNexus(color, row, column+1);
                 }
                 estado = true;
             }
