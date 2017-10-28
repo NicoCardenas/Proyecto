@@ -36,10 +36,10 @@ public class Tablero{
         size = 10;
         for (int i = 0; i < width; i++){
             for (int j = 0; j < height; j++){
-                tablero1[i][j] = new Celula( (10+(size+1)*i), 10+((size+1)*j), size);
-                tablero2[i][j] = new Celula( ((width*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
-                tablero3[i][j] = new Celula( (10+(size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
-                tablero4[i][j] = new Celula( ((width*(size+1))+20)+((size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
+                tablero1[i][j] = new Normal( (10+(size+1)*i), 10+((size+1)*j), size);
+                tablero2[i][j] = new Normal( ((width*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
+                tablero3[i][j] = new Normal( (10+(size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
+                tablero4[i][j] = new Normal( ((width*(size+1))+20)+((size+1)*i) , ((height*(size+1))+20)+((size+1)*j) , size);
             }
         }
         h = tablero1[width-1][height-1].getPositionY()+11; w = tablero1[width-1][height-1].getPositionX()+11;        
@@ -53,21 +53,21 @@ public class Tablero{
     public Tablero(String[] referencePattern){
         int a = referencePattern[0].length();
         int b = referencePattern.length;
-        tablero1 = new Celula[a][b];
-        tablero2 = new Celula[a][b];
-        tablero3 = new Celula[a][b];
-        tablero4 = new Celula[a][b];
+        tablero1 = new Normal[a][b];
+        tablero2 = new Normal[a][b];
+        tablero3 = new Normal[a][b];
+        tablero4 = new Normal[a][b];
         isVisible = estado = fin = false;
         size = 10;
         for (int i = 0; i < a; i++){
             for (int j = 0; j < b; j++){
-                tablero1[i][j] = new Celula((10+(size+1)*i),10+((size+1)*j),size);
-                tablero2[i][j] = new Celula( ((a*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
+                tablero1[i][j] = new Normal((10+(size+1)*i),10+((size+1)*j),size);
+                tablero2[i][j] = new Normal( ((a*(size+1))+19)+((size+1)*i) , (10+(size+1)*j) , size );
                 if (referencePattern[j].charAt(i)=='#'){
                    tablero2[i][j].changeColor("blue");                   
                 }
-                tablero3[i][j] = new Celula( (10+(size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
-                tablero4[i][j] = new Celula( ((a*(size+1))+20)+((size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
+                tablero3[i][j] = new Normal( (10+(size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
+                tablero4[i][j] = new Normal( ((a*(size+1))+20)+((size+1)*i) , ((b*(size+1))+20)+((size+1)*j) , size);
                 estado = true;
             }
         }    
@@ -133,12 +133,8 @@ public class Tablero{
             estado = false;
             for (int i = 0; i < tablero1.length; i++){
                 for (int j = 0; j < tablero1[0].length; j++){
-                    int contador = vecinos(i,j);       
-                    if (contador%2 != 0){
-                        tablero3[i][j].changeColor("blue");
-                    }else if (contador%2 == 0){
-                        tablero3[i][j].changeColor("light gray");
-                    }
+                    int contador = vecinos(i,j);
+                    tablero3[i][j].replicate(contador);
                 }
             }
             cloneT(tablero1,tablero3);
@@ -203,14 +199,23 @@ public class Tablero{
      * @param color es el color del nexus para disolver.
      */
     public void dissolveNexus(String color){
-        
         estado = false;
         for (int i = 0 ; i < tablero1.length; i++){
-            for (int j = 0 ; j < tablero1[0].length && tablero1[i][j].getColor() == color; j++){
-                tablero1[i][j].changeColor(tablero1[i][j].popOriginColor());
+            for (int j = 0 ; j < tablero1[0].length; j++){
+                if (tablero1[i][j].getColor() == color) tablero1[i][j].changeColor(tablero1[i][j].popOriginColor());
                 estado = true;           
             }
         }                    
+    }
+    
+    public void dissolveNexus(){
+        estado = false;
+        for (int i = 0 ; i < tablero1.length; i++){
+            for (int j = 0 ; j < tablero1[0].length; j++){
+                tablero1[i][j].changeColor(tablero1[i][j].popOriginColor());
+                estado = true;           
+            }
+        }  
     }
     
     /**
@@ -275,8 +280,8 @@ public class Tablero{
         if (!fin){
             estado = false;       
             makeInvisible();
-            tablero3 = new Celula [tablero1.length][tablero1[0].length];
-            tablero4 = new Celula [tablero1.length][tablero1[0].length];
+            tablero3 = new Normal [tablero1.length][tablero1[0].length];
+            tablero4 = new Normal [tablero1.length][tablero1[0].length];
             int a,b;
             for (int i = 0; i < tablero1.length; i++){
                 for (int j = 0; j < tablero1[0].length; j++){
@@ -300,12 +305,12 @@ public class Tablero{
      */
     public void switchy(){
         if (!fin){
-            tablero3 = new Celula [tablero1.length][tablero1[0].length];
-            tablero4 = new Celula [tablero1.length][tablero1[0].length];
+            tablero3 = new Normal [tablero1.length][tablero1[0].length];
+            tablero4 = new Normal [tablero1.length][tablero1[0].length];
             for (int i = 0; i < tablero1.length; i++){
                 for (int j = 0; j < tablero1[0].length; j++){
-                    tablero3[i][j] = new Celula(0, 0, size);
-                    tablero4[i][j] = new Celula(0, 0, size);
+                    tablero3[i][j] = new Normal(0, 0, size);
+                    tablero4[i][j] = new Normal(0, 0, size);
                 }
             }
             cloneT(tablero3,tablero1);
@@ -357,6 +362,31 @@ public class Tablero{
             }
         }
         makeVisible();
+    }
+    
+    /**
+     * 
+     */
+    public void mutate(String type, int row, int column){
+        tablero1[column-1][row-1].setOriginColor(tablero1[column-1][row-1].getColor());
+        if (type == "normal")
+            tablero1[column-1][row-1] = new Normal(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+        else if (type == "even")
+            tablero1[column-1][row-1] = new Even(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+        else if (type == "rigid")
+            tablero1[column-1][row-1] = new Rigid(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+        else if (type == "immune")
+            tablero1[column-1][row-1] = new Immune(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+        else if (type == "social")
+            tablero1[column-1][row-1] = new Social(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+        else if (type == "floja")
+            tablero1[column-1][row-1] = new Floja(tablero1[column-1][row-1].getPositionX(),tablero1[column-1][row-1].getPositionY(),size,tablero1[column-1][row-1].getColorOrigin());
+   }
+    
+    /**
+     * 
+     */
+    public void mutate(String type, int[][] cells){
     }
     
     public int getHeight(){

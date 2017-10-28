@@ -1,5 +1,6 @@
 package rfplcbte;
 
+import java.util.*;
 
 /**
  * Write a description of class CuadradoImmune here.
@@ -7,29 +8,38 @@ package rfplcbte;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Immune extends Celula
-{
-    // instance variables - replace the example below with your own
-    private int x;
+public class Immune extends Celula{
 
     /**
      * Constructor for objects of class CuadradoImmune
      */
-    public Immune()
-    {
-        // initialise instance variables
-        x = 0;
+    public Immune(int xPosition, int yPosition, int size){
+        height = size;
+        width = size;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        color = "light gray";
+        isVisible = false;
     }
-
+    
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Constructor for objects of class CuadradoEven
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public Immune(int xPosition, int yPosition, int size, Stack<String> listColors){
+        height = size;
+        width = size;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        color = "light gray";
+        this.colorOrigin = listColors;
+        isVisible = false;
+    }
+    
+    public void replicate(int vecinos){
+        if (vecinos%2 != 0){
+            this.changeColor("turquesa");
+        }else if (vecinos%2 == 0){
+            this.changeColor("light gray");
+        }
     }
 }
