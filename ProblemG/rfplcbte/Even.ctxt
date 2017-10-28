@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=xPosition\ yPosition\ size
+comment0.target=Even(int,\ int,\ int)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ CuadradoEven\r\n
+comment1.params=xPosition\ yPosition\ size\ listColors
+comment1.target=Even(int,\ int,\ int,\ java.util.Stack)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ CuadradoEven\r\n
+comment2.params=vecinos
+comment2.target=void\ replicate(int)
+numComments=3

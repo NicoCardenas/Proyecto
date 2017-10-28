@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.params=
+comment0.target=RfplicbteContest()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ RfplicbteContest\r\n
+comment1.params=referencePattern
+comment1.target=java.lang.String[]\ solve(java.lang.String[])
+comment2.params=referencePattern\ slow
+comment2.target=void\ simulate(java.lang.String[],\ boolean)
+comment3.params=patron
+comment3.target=int[][]\ convert(java.lang.String[])
+comment4.params=
+comment4.target=void\ pause()
+numComments=5

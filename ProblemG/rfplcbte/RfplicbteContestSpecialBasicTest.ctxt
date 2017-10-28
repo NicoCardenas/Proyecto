@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.params=
+comment0.target=RfplicbteContestSpecialBasicTest()
+comment1.params=
+comment1.target=void\ deberiaResolverCaso1()
+comment2.params=
+comment2.target=void\ deberiaResolverCaso2()
+comment3.params=
+comment3.target=void\ deberiaResolverCaso3()
+comment4.params=
+comment4.target=void\ deberiaSimularRapidoCaso1()
+comment5.params=
+comment5.target=void\ deberiaSimularLentoCaso2()
+comment6.params=
+comment6.target=void\ deberiaSimularRapidoCaso3()
+comment7.params=
+comment7.target=boolean\ ok()
+numComments=8

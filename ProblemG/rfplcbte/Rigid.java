@@ -1,5 +1,6 @@
 package rfplcbte;
 
+import java.util.*;
 
 /**
  * Write a description of class CuadradoRigid here.
@@ -7,29 +8,28 @@ package rfplcbte;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Rigid extends Cuadrado
-{
-    // instance variables - replace the example below with your own
-    private int x;
+public class Rigid extends Celula{
 
     /**
      * Constructor for objects of class CuadradoRigid
      */
-    public Rigid()
-    {
-        // initialise instance variables
-        x = 0;
+    public Rigid(int xPosition, int yPosition, int size){
+        super(xPosition, yPosition, size);
+        color = "black";
+        type = "rigid";
+        isVisible = false;
     }
-
+    
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Constructor for objects of class CuadradoEven
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public Rigid(int xPosition, int yPosition, int size, Stack<String> listColors){
+        super(xPosition, yPosition, size, listColors);
+        type = "rigid";
+        color = "black";
+        isVisible = false;
+    }
+    
+    public void replicate(int vecinos){
     }
 }

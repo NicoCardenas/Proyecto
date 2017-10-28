@@ -43,8 +43,7 @@ public class RfplicbteContest{
         int[][] cells = new int[patron.length*patron[0].length()][2];
         int count = 0;
         for(int i = 0; i < patron.length-1; i++){
-            for(int j = 0; j < patron[0].length(); j++){
-                System.out.println("i: "+i+" j: "+j);
+            for(int j = 0; j < patron[0].length(); j++){           
                 if (patron[i].charAt(j) == '#'){
                     cells[count][0] = j+1;
                     cells[count][1] = i+1;
